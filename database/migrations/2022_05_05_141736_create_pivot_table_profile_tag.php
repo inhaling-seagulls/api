@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectsTable extends Migration
+class CreatePivotTableProfileTag extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('profile_tag', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
-            $table->text('description')->nullable();
-            $table->string('image');
             $table->foreignId('profile_id')->onDelete('cascade');
+            $table->foreignId('tag_id')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('profile_tag');
     }
 }

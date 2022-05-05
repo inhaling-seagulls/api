@@ -5,15 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Profile extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
-        'image',
-        'profile_id'
+        'pseudo',
+        'contact',
     ];
 
     public function tags()
@@ -21,8 +19,8 @@ class Project extends Model
         return $this->belongsToMany(Tag::class);
     }
 
-    public function profile()
+    public function projects()
     {
-        return $this->belongsTo(Profile::class);
+        return $this->hasMany(Project::class);
     }
 }

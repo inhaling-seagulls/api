@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ProjectResource;
-use App\Models\Project;
+use App\Http\Resources\ProfileResource;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
-class ProjectController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,17 +15,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return ProjectResource::collection(Project::with(['tags', 'profile'])->paginate());
-    }
-
-    /**
-     * Display a listing of the matching resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function match($request)
-    {
-        return "WIP";
+        return ProfileResource::collection(Profile::with(['tags'])->paginate());
     }
 
     /**
@@ -36,8 +26,8 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $project = new Project();
-        $project->create($request->all())->tags()->attach($request->tags);
+        $profile = new Profile();
+        $profile->create($request->all())->tags()->attach($request->tags);
 
         return $request;
     }
@@ -50,7 +40,7 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        return new ProjectResource(Project::with(['tags', 'profile'])->findOrFail($id));
+        //
     }
 
     /**
@@ -62,9 +52,7 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $project = Project::findOrFail($id);
-        $project->update($request->all());
-        $project->tags()->sync($request->tags);
+        //
     }
 
     /**
@@ -75,8 +63,6 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        $project = Project::findOrFail($id);
-        $project->tags()->detach();
-        $project->delete();
+        //
     }
 }
