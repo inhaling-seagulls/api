@@ -14,10 +14,12 @@ class CreatePivotTableProjectTag extends Migration
     public function up()
     {
         Schema::create('project_tag', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('project_id')->onDelete('cascade');
-            $table->foreignId('tag_id')->onDelete('cascade');
-            $table->timestamps();
+            $table->foreignId('project_id')->unsigned();
+            $table->foreignId('tag_id')->unsigned();
+
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->primary(['project_id', 'tag_id']);
         });
     }
 

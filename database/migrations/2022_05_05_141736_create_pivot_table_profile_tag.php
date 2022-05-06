@@ -14,10 +14,12 @@ class CreatePivotTableProfileTag extends Migration
     public function up()
     {
         Schema::create('profile_tag', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('profile_id')->onDelete('cascade');
-            $table->foreignId('tag_id')->onDelete('cascade');
-            $table->timestamps();
+            $table->foreignId('profile_id')->unsigned();
+            $table->foreignId('tag_id')->unsigned();
+
+            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->primary(['profile_id', 'tag_id']);
         });
     }
 

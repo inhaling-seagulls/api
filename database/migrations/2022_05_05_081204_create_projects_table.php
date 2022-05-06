@@ -15,10 +15,11 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 255);
+            $table->string('name', 255)->unique();
             $table->text('description')->nullable();
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->foreignId('profile_id')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

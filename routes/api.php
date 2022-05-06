@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::apiResources([
-    'projects' => ProjectController::class,
-    'profiles' => ProfileController::class
-]);
+Route::apiResource('profiles', ProfileController::class, ['except' => ['index']]);
+Route::apiResource('projects', ProjectController::class);
+Route::apiResource('tags', TagController::class, ['only' => ['index']]);

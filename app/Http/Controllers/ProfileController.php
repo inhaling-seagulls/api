@@ -15,7 +15,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return ProfileResource::collection(Profile::with(['tags'])->paginate());
+        return ProfileResource::collection(Profile::with(['tags', 'projects'])->paginate());
     }
 
     /**
@@ -40,7 +40,7 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        return new ProfileResource(Profile::with(['tags', 'projects'])->findOrFail($id));
     }
 
     /**
@@ -52,7 +52,9 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $profile = Profile::findOrFail($id);
+        $profile->update($request->all());
+        $profile->tags()->sync($request->tags);
     }
 
     /**
@@ -63,6 +65,7 @@ class ProfileController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $profile = Profile::findOrFail($id);
+        $profile->delete();
     }
 }
