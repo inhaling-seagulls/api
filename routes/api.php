@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+Route::apiResource('profiles', ProfileController::class, ['except' => ['index']]);
+Route::apiResource('projects', ProjectController::class);
+Route::apiResource('tags', TagController::class, ['only' => ['index']]);
