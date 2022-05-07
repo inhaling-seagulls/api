@@ -2,12 +2,15 @@
 
 ## How to start
 
-### Environnement 
+### Environnement
+
 // TODO
 
 ### Command line
+
 ```
 composer install
+php artisan db:create
 php artisan migrate
 php artisan serve
 ```
@@ -17,23 +20,30 @@ php artisan serve
 ### Routes
 
 #### Profiles
-- get:profiles
-- get:profiles/:id
-- post:profiles
-- put:profiles/:id
-- delete:profiles/:id
+
+-   get:profiles
+-   get:profiles/:id
+-   post:profiles
+-   put:profiles/:id
+-   delete:profiles/:id
+
 #### Projects
-- get:projects/:id
-- post:projects
-- put:projects/:id
-- delete:projects/:id
+
+-   get:projects/:id
+-   post:projects
+-   put:projects/:id
+-   delete:projects/:id
+
 #### Tags
-- get:tags
+
+-   get:tags
 
 ### Add/Update a profile
+
 Route: post:profiles
 
 Body request format
+
 ```
 {
     "pseudo": "Pseudo",
@@ -47,9 +57,11 @@ Body request format
 ```
 
 ### Add/Update a project
+
 Route: post:projects
 
 Body request format
+
 ```
 {
     "name": "project name",
