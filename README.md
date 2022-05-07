@@ -48,11 +48,7 @@ Body request format
 {
     "pseudo": "Pseudo",
     "contact": "Your infos",
-    "tags": [
-        {
-            "tag_id": 1
-        }
-    ]
+    "tags": [ 1, 2 ]
 }
 ```
 
@@ -67,9 +63,7 @@ Body request format
     "name": "project name",
     "description": "description",
     "image": "url",
-    "tags": [
-        {"tag_id": 1}
-    ],
-    "profile_id" : 1
+    "profile_id" : 1,
+    "tags": [ 1, 2 ]
 }
 ```
