@@ -11,46 +11,56 @@ class ProjectController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        return ProjectResource::collection(Project::with(['tags', 'profile'])->paginate());
+        $projects = ProjectResource::collection(Project::with(['tags', 'profile'])->paginate());
+        return response()->json($projects);
     }
 
     /**
      * Display a listing of the matching resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function match($request)
+    public function match(Request $request)
     {
-        return "WIP";
+        $projects =
+            ProjectResource::collection(
+                Project::with(['tags'])->whereHas('tags', function ($query) use ($request) {
+                    return $query->whereIn('tags.id', $request->tags);
+                })->get()
+            );
+
+        return response()->json($projects);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $project = new Project();
         $project->create($request->all())->tags()->attach($request->tags);
 
-        return $request;
+        return response()->json();
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        return new ProjectResource(Project::with(['tags', 'profile'])->findOrFail($id));
+        $project = new ProjectResource(Project::with(['tags', 'profile'])->findOrFail($id));
+
+        return response()->json($project);
     }
 
     /**
@@ -58,24 +68,28 @@ class ProjectController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
         $project = Project::findOrFail($id);
         $project->update($request->all());
         $project->tags()->sync($request->tags);
+
+        return response()->json();
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
         $project = Project::findOrFail($id);
         $project->delete();
+
+        return response()->json();
     }
 }
