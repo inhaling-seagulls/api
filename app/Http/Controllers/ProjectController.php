@@ -45,7 +45,7 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $project = new Project();
-        $project->create($request->all())->tags()->attach($request->tags);
+        $project->create($request->except(['id']))->tags()->attach($request->tags);
 
         return response()->json();
     }
@@ -73,7 +73,7 @@ class ProjectController extends Controller
     public function update(Request $request, $id)
     {
         $project = Project::findOrFail($id);
-        $project->update($request->all());
+        $project->update($request->except(['id']));
         $project->tags()->sync($request->tags);
 
         return response()->json();

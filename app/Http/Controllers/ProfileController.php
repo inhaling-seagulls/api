@@ -9,17 +9,6 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index()
-    {
-        $profiles = ProfileResource::collection(Profile::with(['tags', 'projects'])->paginate());
-        return response()->json($profiles);
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -28,7 +17,7 @@ class ProfileController extends Controller
     public function store(Request $request)
     {
         $profile = new Profile();
-        $profile->create($request->all())->tags()->attach($request->tags);
+        $profile->create($request->except(['id']))->tags()->attach($request->tags);
 
         return response()->json($profile);
     }
@@ -55,7 +44,7 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $profile = Profile::findOrFail($id);
-        $profile->update($request->all());
+        $profile->update($request->except(['id']));
         $profile->tags()->sync($request->tags);
 
         return response()->json();
