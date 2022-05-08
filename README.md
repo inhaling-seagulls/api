@@ -4,7 +4,20 @@
 
 ### Environnement
 
-// TODO
+Copy .env.example file and rename it .env
+
+Put your Database parameters.
+
+Example :
+
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE={YOUR_DB_NAME}
+DB_USERNAME={YOUR_USER_NAME}
+DB_PASSWORD={YOUR_PASSWORD}
+```
 
 ### Command line
 
@@ -31,6 +44,7 @@ php artisan serve
 
 -   get:projects/:id
 -   post:projects
+-   post:projects/match
 -   put:projects/:id
 -   delete:projects/:id
 
@@ -64,6 +78,18 @@ Body request format
     "description": "description",
     "image": "url",
     "profile_id" : 1,
+    "tags": [ 1, 2 ]
+}
+```
+
+### Get matching project
+
+Route: post:projects/match
+
+Body request format
+
+```
+{
     "tags": [ 1, 2 ]
 }
 ```

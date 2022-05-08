@@ -11,36 +11,38 @@ class ProfileController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index()
     {
-        return ProfileResource::collection(Profile::with(['tags', 'projects'])->paginate());
+        $profiles = ProfileResource::collection(Profile::with(['tags', 'projects'])->paginate());
+        return response()->json($profiles);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
     {
         $profile = new Profile();
         $profile->create($request->all())->tags()->attach($request->tags);
 
-        return $request;
+        return response()->json($profile);
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        return new ProfileResource(Profile::with(['tags', 'projects'])->findOrFail($id));
+        $profile = new ProfileResource(Profile::with(['tags', 'projects'])->findOrFail($id));
+        return response()->json($profile);
     }
 
     /**
@@ -48,24 +50,28 @@ class ProfileController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
     {
         $profile = Profile::findOrFail($id);
         $profile->update($request->all());
         $profile->tags()->sync($request->tags);
+
+        return response()->json();
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
     {
         $profile = Profile::findOrFail($id);
         $profile->delete();
+
+        return response()->json();
     }
 }
