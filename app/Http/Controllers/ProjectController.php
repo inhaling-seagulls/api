@@ -2,94 +2,87 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ProjectResource;
 use App\Models\Project;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
+use App\Http\Resources\ProjectResource;
 
 class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $projects = ProjectResource::collection(Project::with(['tags', 'profile'])->paginate());
-        return response()->json($projects);
+        return ProjectResource::collection(Project::with(['tags', 'profile'])->paginate(3));
     }
 
     /**
-     * Display a listing of the matching resource.
+     * Display a listing of matching resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @param int $profile_id
+     * @return \Illuminate\Http\Response
      */
-    public function match(Request $request)
+    public function match($profile_id)
     {
-        $projects =
-            ProjectResource::collection(
-                Project::with(['tags'])->whereHas('tags', function ($query) use ($request) {
-                    return $query->whereIn('tags.id', $request->tags);
-                })->get()
-            );
-
-        return response()->json($projects);
+        return ProjectResource::collection(Project::with(['tags', 'profile'])->paginate(3));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\Http\Requests\StoreProjectRequest  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $project = new Project();
-        $project->create($request->except(['id']))->tags()->attach($request->tags);
+        $project = Project::create($request->except(['id']));
+        $project->tags()->sync($request->tags);
+        $project = $project->load(['tags', 'profile']);
 
-        return response()->json();
+        return new ProjectResource($project);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\Models\Project  $project
+     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Project $project)
     {
-        $project = new ProjectResource(Project::with(['tags', 'profile'])->findOrFail($id));
-
-        return response()->json($project);
+        $project = $project->load(['tags', 'profile']);
+        return new ProjectResource($project);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\Http\Requests\UpdateProjectRequest  $request
+     * @param  \App\Models\Project  $project
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
-        $project = Project::findOrFail($id);
-        $project->update($request->except(['id']));
+        $project->update($request->all());
         $project->tags()->sync($request->tags);
+        $project = $project->load(['tags', 'profile']);
 
-        return response()->json();
+        return new ProjectResource($project);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\Models\Project  $project
+     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Project $project)
     {
-        $project = Project::findOrFail($id);
         $project->delete();
 
-        return response()->json();
+        return response('', 204);
     }
 }

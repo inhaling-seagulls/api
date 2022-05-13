@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProfileResource;
 use App\Models\Profile;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreProfileRequest;
+use App\Http\Requests\UpdateProfileRequest;
 
 class ProfileController extends Controller
 {
@@ -15,18 +16,18 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        //
+        return ProfileResource::collection(Profile::with(['tags', 'projects'])->paginate(3));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\StoreProfileRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProfileRequest $request)
     {
-        $profile = Profile::create($request->all());
+        $profile = Profile::create($request->except(['id']));
         $profile->tags()->sync($request->tags);
         $profile = $profile->load('tags');
 
@@ -41,19 +42,24 @@ class ProfileController extends Controller
      */
     public function show(Profile $profile)
     {
-        //
+        $profile = $profile->load(['tags', 'projects']);
+        return new ProfileResource($profile);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\UpdateProfileRequest  $request
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profile $profile)
+    public function update(UpdateProfileRequest $request, Profile $profile)
     {
-        //
+        $profile->update($request->all());
+        $profile->tags()->sync($request->tags);
+        $profile = $profile->load(['tags', 'projects']);
+
+        return new ProfileResource($profile);
     }
 
     /**
@@ -64,6 +70,8 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        //
+        $profile->delete();
+
+        return response('', 204);
     }
 }
