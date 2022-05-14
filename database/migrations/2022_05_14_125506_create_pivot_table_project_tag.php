@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePivotTableProfileTag extends Migration
+class CreatePivotTableProjectTag extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreatePivotTableProfileTag extends Migration
      */
     public function up()
     {
-        Schema::create('profile_tag', function (Blueprint $table) {
-            $table->foreignId('profile_id')->unsigned();
+        Schema::create('project_tag', function (Blueprint $table) {
+            $table->foreignId('project_id')->unsigned();
             $table->foreignId('tag_id')->unsigned();
 
-            $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
-            $table->primary(['profile_id', 'tag_id']);
+            $table->primary(['project_id', 'tag_id']);
         });
     }
 
@@ -30,6 +30,6 @@ class CreatePivotTableProfileTag extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('profile_tag');
+        Schema::dropIfExists('pivot_table_project_tag');
     }
 }
