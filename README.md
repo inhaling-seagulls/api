@@ -34,7 +34,6 @@ php artisan serve
 
 #### Profiles
 
--   get:profiles
 -   get:profiles/:id
 -   post:profiles
 -   put:profiles/:id
@@ -42,9 +41,11 @@ php artisan serve
 
 #### Projects
 
+-   get:profiles
+    -   ?page=1 (Pagination)
+    -   ?match (WIP : return a list of project that match with user favorite tags)
 -   get:projects/:id
 -   post:projects
--   post:projects/match
 -   put:projects/:id
 -   delete:projects/:id
 
