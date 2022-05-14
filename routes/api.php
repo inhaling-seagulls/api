@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
@@ -21,8 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('register', [AuthController::class, 'register']);
 
-Route::apiResource('profiles', ProfileController::class, ['except' => []]);
+Route::apiResource('profiles', ProfileController::class, ['except' => []])->middleware('auth:sanctum');
 Route::apiResource('projects', ProjectController::class);
 
 Route::apiResource('tags', TagController::class, ['only' => ['index']]);
