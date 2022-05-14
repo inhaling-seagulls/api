@@ -6,6 +6,7 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
+use App\Models\Profile;
 
 class ProjectController extends Controller
 {
@@ -16,18 +17,18 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        return ProjectResource::collection(Project::with(['tags', 'profile'])->paginate(3));
-    }
+        $projects = Project::with(['tags', 'profile']);
 
-    /**
-     * Display a listing of matching resource.
-     *
-     * @param int $profile_id
-     * @return \Illuminate\Http\Response
-     */
-    public function match($profile_id)
-    {
-        return ProjectResource::collection(Project::with(['tags', 'profile'])->paginate(3));
+        $match = request()->exists('match');
+        if ($match) {
+            $tags = Profile::first()->tags()->get(['id']); // This is temporary : Later we should use the current user profile to fetch tags
+
+            $projects = $projects->whereHas('tags', function ($query) use ($tags) {
+                return $query->whereIn('id', $tags);
+            });
+        }
+
+        return ProjectResource::collection($projects->paginate());
     }
 
     /**

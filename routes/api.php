@@ -23,7 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::apiResource('profiles', ProfileController::class, ['except' => []]);
-
 Route::apiResource('projects', ProjectController::class);
 
 Route::apiResource('tags', TagController::class, ['only' => ['index']]);

@@ -14,6 +14,8 @@ class Profile extends Model
         'contact',
     ];
 
+    protected $hidden = ['pivot'];
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
