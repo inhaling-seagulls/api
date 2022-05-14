@@ -4,74 +4,74 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProfileResource;
 use App\Models\Profile;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreProfileRequest;
+use App\Http\Requests\UpdateProfileRequest;
 
 class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $profiles = ProfileResource::collection(Profile::with(['tags', 'projects'])->paginate());
-        return response()->json($profiles);
+        return ProfileResource::collection(Profile::with(['tags', 'projects'])->paginate(3));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\Http\Requests\StoreProfileRequest  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProfileRequest $request)
     {
-        $profile = new Profile();
-        $profile->create($request->all())->tags()->attach($request->tags);
+        $profile = Profile::create($request->except(['id']));
+        $profile->tags()->sync($request->tags);
+        $profile = $profile->load('tags');
 
-        return response()->json($profile);
+        return new ProfileResource($profile);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\Models\Profile  $profile
+     * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Profile $profile)
     {
-        $profile = new ProfileResource(Profile::with(['tags', 'projects'])->findOrFail($id));
-        return response()->json($profile);
+        $profile = $profile->load(['tags', 'projects']);
+        return new ProfileResource($profile);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\Http\Requests\UpdateProfileRequest  $request
+     * @param  \App\Models\Profile  $profile
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProfileRequest $request, Profile $profile)
     {
-        $profile = Profile::findOrFail($id);
         $profile->update($request->all());
         $profile->tags()->sync($request->tags);
+        $profile = $profile->load(['tags', 'projects']);
 
-        return response()->json();
+        return new ProfileResource($profile);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
+     * @param  \App\Models\Profile  $profile
+     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Profile $profile)
     {
-        $profile = Profile::findOrFail($id);
         $profile->delete();
 
-        return response()->json();
+        return response('', 204);
     }
 }

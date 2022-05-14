@@ -9,6 +9,8 @@ class Tag extends Model
 {
     use HasFactory;
 
+    protected $hidden = ['pivot'];
+
     public function projects()
     {
         return $this->belongsToMany(Project::class);

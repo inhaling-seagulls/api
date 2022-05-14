@@ -16,6 +16,8 @@ class Project extends Model
         'profile_id'
     ];
 
+    protected $hidden = ['pivot'];
+
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
