@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Profile;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateProfileRequest extends FormRequest
 {
@@ -13,7 +15,9 @@ class UpdateProfileRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $profile = $this->route('profile.id');
+
+        return Profile::where('id', $profile)->where('user_id', Auth::id())->exists();
     }
 
     /**

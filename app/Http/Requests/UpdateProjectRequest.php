@@ -2,7 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Profile;
+use App\Models\Project;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateProjectRequest extends FormRequest
 {
@@ -13,7 +16,13 @@ class UpdateProjectRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $profile = Profile::where('user_id', Auth::id())->first();
+
+        if (!$profile) return false;
+
+        $project = $this->route('project.id');
+
+        return Project::where('id', $project)->where('profile_id', $profile['id'])->exists();
     }
 
     /**
