@@ -20,7 +20,7 @@ class ProfileResource extends JsonResource
                 'pseudo' => $this->pseudo,
                 'contact' => $this->contact,
                 'projects' => ProjectResource::collection($this->whenLoaded('projects')),
-                'tags' => TagResource::collection($this->whenLoaded('tags'))
+                'tags' => TagResource::collection($this->whenLoaded('tags')),
             ];
     }
 }

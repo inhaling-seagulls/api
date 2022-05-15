@@ -12,6 +12,7 @@ class Profile extends Model
     protected $fillable = [
         'pseudo',
         'contact',
+        'user_id'
     ];
 
     protected $hidden = ['pivot'];

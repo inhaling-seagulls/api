@@ -17,7 +17,7 @@ class CreateProfilesTable extends Migration
             $table->id();
             $table->string('pseudo', 255)->unique();
             $table->text('contact')->nullable();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();

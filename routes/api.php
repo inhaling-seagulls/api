@@ -25,6 +25,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('register', [AuthController::class, 'register']);
 
 Route::apiResource('profiles', ProfileController::class, ['except' => []])->middleware('auth:sanctum');
-Route::apiResource('projects', ProjectController::class);
+Route::apiResource('projects', ProjectController::class)->middleware('auth:sanctum');
 
 Route::apiResource('tags', TagController::class, ['only' => ['index']]);

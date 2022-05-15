@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Models\Profile;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -39,7 +40,16 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $project = Project::create($request->except(['id']));
+        $profile = Profile::where('user_id', '=', Auth::id())->first('id');
+
+        if (!$profile) return response(['message' => 'No profile found'], 404);
+
+        $project = Project::create([
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'image' => $request->input('image'),
+            'profile_id' => $profile->id
+        ]);
         $project->tags()->sync($request->tags);
         $project = $project->load(['tags', 'profile']);
 
