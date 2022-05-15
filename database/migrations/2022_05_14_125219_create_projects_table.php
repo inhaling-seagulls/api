@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddProfileIdToProjects extends Migration
+class CreateProjectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,15 @@ class AddProfileIdToProjects extends Migration
      */
     public function up()
     {
-        Schema::table('projects', function (Blueprint $table) {
+        Schema::create('projects', function (Blueprint $table) {
+            $table->id();
+            $table->string('name', 255)->unique();
+            $table->text('description')->nullable();
+            $table->string('image')->nullable();
+            $table->foreignId('profile_id');
             $table->foreign('profile_id')->references('id')->on('profiles')->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 
@@ -25,8 +32,6 @@ class AddProfileIdToProjects extends Migration
      */
     public function down()
     {
-        Schema::table('projects', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('projects');
     }
 }

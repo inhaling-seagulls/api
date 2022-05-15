@@ -6,6 +6,7 @@ use App\Http\Resources\ProfileResource;
 use App\Models\Profile;
 use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileController extends Controller
 {
@@ -27,7 +28,11 @@ class ProfileController extends Controller
      */
     public function store(StoreProfileRequest $request)
     {
-        $profile = Profile::create($request->except(['id']));
+        $profile = Profile::create([
+            'pseudo' => $request->input('pseudo'),
+            'contact' => $request->input('contact'),
+            'user_id' => Auth::id()
+        ]);
         $profile->tags()->sync($request->tags);
         $profile = $profile->load('tags');
 
