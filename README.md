@@ -78,19 +78,6 @@ Body request format
     "name": "project name",
     "description": "description",
     "image": "url",
-    "profile_id" : 1,
-    "tags": [ 1, 2 ]
-}
-```
-
-### Get matching project
-
-Route: post:projects/match
-
-Body request format
-
-```
-{
     "tags": [ 1, 2 ]
 }
 ```
