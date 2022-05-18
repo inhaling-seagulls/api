@@ -75,6 +75,10 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
+        if ($profile->user_id !== Auth::id()) {
+            return response('', 401);
+        }
+
         $profile->delete();
 
         return response('', 204);

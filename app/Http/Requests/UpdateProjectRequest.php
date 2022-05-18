@@ -18,8 +18,6 @@ class UpdateProjectRequest extends FormRequest
     {
         $profile = Profile::where('user_id', Auth::id())->first();
 
-        if (!$profile) return false;
-
         $project = $this->route('project.id');
 
         return Project::where('id', $project)->where('profile_id', $profile['id'])->exists();
