@@ -22,8 +22,7 @@ class ProjectController extends Controller
 
         $match = request()->exists('match');
         if ($match) {
-            $tags = Profile::first()->tags()->get(['id']); // This is temporary : Later we should use the current user profile to fetch tags
-
+            $tags = Profile::where('user_id', Auth::id())->first()->tags()->get(['id']);
             $projects = $projects->whereHas('tags', function ($query) use ($tags) {
                 return $query->whereIn('id', $tags);
             });
@@ -40,7 +39,7 @@ class ProjectController extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
-        $profile = Profile::where('user_id', '=', Auth::id())->first('id');
+        $profile = Profile::where('user_id', Auth::id())->first('id');
 
         if (!$profile) return response(['message' => 'No profile found'], 404);
 
@@ -92,6 +91,10 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->profile()->first()->user_id !== Auth::id()) {
+            return response('', 401);
+        }
+
         $project->delete();
 
         return response('', 204);
