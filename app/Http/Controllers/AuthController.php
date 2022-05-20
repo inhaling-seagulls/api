@@ -24,11 +24,12 @@ class AuthController extends Controller
 
         $token = $user->createToken('api_token')->plainTextToken;
 
+        // We format user so it includes token
+        $data = ['user' => $user];
+        $data['user']['token'] = $token;
+
         return response([
-            'data' => [
-                'user' => $user,
-                'token' => $token
-            ]
+            'data' => $data
         ], 201);
     }
 
@@ -51,11 +52,12 @@ class AuthController extends Controller
 
         $token = $user->createToken('api_token')->plainTextToken;
 
+        // We format user so it includes token
+        $data = ['user' => $user];
+        $data['user']['token'] = $token;
+
         return response([
-            'data' => [
-                'user' => $user,
-                'token' => $token
-            ]
+            'data' => $data
         ], 201);
     }
 
@@ -63,10 +65,6 @@ class AuthController extends Controller
     {
         auth()->user()->tokens()->delete();
 
-        return response([
-            'data' => [
-                'message' => 'Logged out'
-            ]
-        ]);
+        return response('', 204);
     }
 }
