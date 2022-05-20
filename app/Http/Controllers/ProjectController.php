@@ -13,13 +13,14 @@ class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
         $projects = Project::with(['tags', 'profile']);
 
+        // Filters project. We get only projects where project tags includes authenticated user tags
         $match = request()->exists('match');
         if ($match) {
             $tags = Profile::where('user_id', Auth::id())->first()->tags()->get(['id']);
@@ -91,6 +92,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        // We compare profile.user_id and authoticated user's id before deleting 
         if ($project->profile()->first()->user_id !== Auth::id()) {
             return response('', 401);
         }
