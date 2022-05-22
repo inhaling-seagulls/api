@@ -25,11 +25,11 @@ class AuthController extends Controller
         $token = $user->createToken('api_token')->plainTextToken;
 
         // We format user so it includes token
-        $data = ['user' => $user];
-        $data['user']['token'] = $token;
+        $data = $user;
+        $data['token'] = $token;
 
         return response([
-            'data' => $data
+            'data' => $data['user']
         ], 201);
     }
 
@@ -53,8 +53,8 @@ class AuthController extends Controller
         $token = $user->createToken('api_token')->plainTextToken;
 
         // We format user so it includes token
-        $data = ['user' => $user];
-        $data['user']['token'] = $token;
+        $data = $user;
+        $data['token'] = $token;
 
         return response([
             'data' => $data
