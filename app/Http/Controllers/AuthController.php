@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\AuthResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -25,12 +26,11 @@ class AuthController extends Controller
         $token = $user->createToken('api_token')->plainTextToken;
 
         // We format user so it includes token
-        $data = $user;
-        $data['token'] = $token;
+        $user['token'] = $token;
+        $user = $user->load('profile');
+        $user = $user->load('profile.projects');
 
-        return response([
-            'data' => $data['user']
-        ], 201);
+        return new AuthResource($user);
     }
 
     public function login(Request $request)
@@ -44,21 +44,18 @@ class AuthController extends Controller
 
         if (!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
-                'data' => [
-                    'message' => 'Password or Email is incorrect'
-                ]
+                'message' => 'Password or Email is incorrect'
             ], 401);
         }
 
         $token = $user->createToken('api_token')->plainTextToken;
 
         // We format user so it includes token
-        $data = $user;
-        $data['token'] = $token;
+        $user['token'] = $token;
+        $user = $user->load('profile');
+        $user = $user->load('profile.projects');
 
-        return response([
-            'data' => $data
-        ], 201);
+        return new AuthResource($user);
     }
 
     public function logout(Request $request)
