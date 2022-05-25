@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProfileProjectController;
 use App\Http\Controllers\TagController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,9 @@ Route::prefix('v1')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
-    Route::apiResource('profiles', ProfileController::class)->middleware('auth:sanctum');
+    Route::apiResource('profiles', ProfileController::class, ['only' => ['index', 'show']])->middleware('auth:sanctum');
+    Route::apiResource('profiles/{profile}/projects', ProfileProjectController::class)->middleware('auth:sanctum');
+
     Route::apiResource('projects', ProjectController::class)->middleware('auth:sanctum');
     Route::apiResource('tags', TagController::class, ['only' => ['index']]);
 });

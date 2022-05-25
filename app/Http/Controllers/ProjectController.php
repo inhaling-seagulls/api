@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Resources\ProjectResource;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
@@ -33,30 +31,6 @@ class ProjectController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreProjectRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreProjectRequest $request)
-    {
-        $profile = Profile::where('user_id', Auth::id())->first('id');
-
-        if (!$profile) return response(['message' => 'No profile found'], 404);
-
-        $project = Project::create([
-            'name' => $request->input('name'),
-            'description' => $request->input('description'),
-            'image' => $request->input('image'),
-            'profile_id' => $profile->id
-        ]);
-        $project->tags()->sync($request->tags);
-        $project = $project->load(['tags', 'profile']);
-
-        return new ProjectResource($project);
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  \App\Models\Project  $project
@@ -66,39 +40,5 @@ class ProjectController extends Controller
     {
         $project = $project->load(['tags', 'profile']);
         return new ProjectResource($project);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateProjectRequest  $request
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateProjectRequest $request, Project $project)
-    {
-        $project->update($request->all());
-        $project->tags()->sync($request->tags);
-        $project = $project->load(['tags', 'profile']);
-
-        return new ProjectResource($project);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Project $project)
-    {
-        // We compare profile.user_id and authoticated user's id before deleting 
-        if ($project->profile()->first()->user_id !== Auth::id()) {
-            return response('', 401);
-        }
-
-        $project->delete();
-
-        return response('', 204);
     }
 }
