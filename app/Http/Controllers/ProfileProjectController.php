@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ProjectResource;
 use App\Models\Profile;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreProjectRequest;
-use App\Http\Requests\UpdateProjectRequest;
 
 class ProfileProjectController extends Controller
 {
@@ -29,7 +27,7 @@ class ProfileProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Profile $profile, StoreProjectRequest $request)
+    public function store(Profile $profile, Request $request)
     {
         $project = $profile->projects()->create([
             'name' => $request->input('name'),
@@ -64,9 +62,8 @@ class ProfileProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProjectRequest $request, Profile $profile, $id)
+    public function update(Request $request, Profile $profile, $id)
     {
-
         $project = $profile->projects()->find($id);
         $project->update($request->all());
         $project->tags()->sync($request->tags);
@@ -84,8 +81,6 @@ class ProfileProjectController extends Controller
      */
     public function destroy(Profile $profile, $id)
     {
-        if (!$profile) return response('', 401);
-
         $profile->projects()->find($id)->delete();
 
         return response('', 204);
