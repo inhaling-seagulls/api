@@ -20,8 +20,8 @@ class ProjectResource extends JsonResource
                 'name' => $this->name,
                 'description' => $this->description,
                 'image' => $this->image,
+                'tags' => TagResource::collection($this->whenLoaded('tags')),
                 'profile' => new ProfileResource($this->whenLoaded('profile')),
-                'tags' => TagResource::collection($this->whenLoaded('tags'))
             ];
     }
 }

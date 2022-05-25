@@ -52,8 +52,7 @@ class AuthController extends Controller
 
         // We format user so it includes token
         $user['token'] = $token;
-        $user = $user->load('profile');
-        $user = $user->load('profile.projects');
+        $user = $user->load(['profile', 'profile.tags', 'profile.projects', 'profile.projects.tags']);
 
         return new AuthResource($user);
     }

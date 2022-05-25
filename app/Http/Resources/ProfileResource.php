@@ -19,8 +19,8 @@ class ProfileResource extends JsonResource
                 'id' => $this->id,
                 'pseudo' => $this->pseudo,
                 'contact' => $this->contact,
-                'projects' => ProjectResource::collection($this->whenLoaded('projects')),
                 'tags' => TagResource::collection($this->whenLoaded('tags')),
+                'projects' => ProjectResource::collection($this->whenLoaded('projects')),
             ];
     }
 }
