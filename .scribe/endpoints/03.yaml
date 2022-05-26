@@ -1,0 +1,211 @@
+name: 'Project Management'
+description: |-
+
+  API's call for project resources.
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/projects
+    metadata:
+      title: 'Display a listing of projects.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters:
+      page:
+        name: page
+        description: 'Page to view.'
+        required: false
+        example: 1
+        type: integer
+        custom: []
+      match:
+        name: match
+        description: 'Matching projects with profile preferences.'
+        required: false
+        example: false
+        type: boolean
+        custom: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":[{"id":11,"name":"Desktop Application","description":"Projet de la soutenance finale","image":"https:\/\/images.pexels.com\/photos\/4678283\/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1","tags":[{"id":2,"name":"vue"},{"id":6,"name":"laravel"},{"id":9,"name":"mysql"},{"id":11,"name":"electron"}],"profile":{"id":19,"pseudo":"Bewiwi","contact":"Bonjonr hihihi,\n\nJe m''appelle Bewiwi~\nJe cherche \u00e0 d\u00e9couvrir des nouvelles technologies\n\n(\u2312\u203f\u2312)"}},{"id":11,"name":"Desktop Application","description":"Projet de la soutenance finale","image":"https:\/\/images.pexels.com\/photos\/4678283\/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1","tags":[{"id":2,"name":"vue"},{"id":6,"name":"laravel"},{"id":9,"name":"mysql"},{"id":11,"name":"electron"}],"profile":{"id":19,"pseudo":"Bewiwi","contact":"Bonjonr hihihi,\n\nJe m''appelle Bewiwi~\nJe cherche \u00e0 d\u00e9couvrir des nouvelles technologies\n\n(\u2312\u203f\u2312)"}}]}'
+        headers: []
+        description: null
+    responseFields: []
+  -
+    httpMethods:
+      - POST
+    uri: api/v1/projects
+    metadata:
+      title: 'Store a newly created project in storage.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Name of the project.'
+        required: true
+        example: 'Project 1'
+        type: string
+        custom: []
+      description:
+        name: description
+        description: 'Description of the project.'
+        required: true
+        example: 'This project is very cool'
+        type: string
+        custom: []
+      image:
+        name: image
+        description: 'Image of the project.'
+        required: false
+        example: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+        type: string
+        custom: []
+      tags:
+        name: tags
+        description: 'List of tag id the project.'
+        required: false
+        example:
+          - 1
+          - 2
+        type: 'string[]'
+        custom: []
+    responses:
+      -
+        status: 200
+        content: '{"data":[{"id":11,"name":"Desktop Application","description":"Projet de la soutenance finale","image":"https:\/\/images.pexels.com\/photos\/4678283\/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1","tags":[{"id":2,"name":"vue"},{"id":6,"name":"laravel"},{"id":9,"name":"mysql"},{"id":11,"name":"electron"}],"profile":{"id":19,"pseudo":"Bewiwi","contact":"Bonjonr hihihi,\n\nJe m''appelle Bewiwi~\nJe cherche \u00e0 d\u00e9couvrir des nouvelles technologies\n\n(\u2312\u203f\u2312)"}},{"id":11,"name":"Desktop Application","description":"Projet de la soutenance finale","image":"https:\/\/images.pexels.com\/photos\/4678283\/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1","tags":[{"id":2,"name":"vue"},{"id":6,"name":"laravel"},{"id":9,"name":"mysql"},{"id":11,"name":"electron"}],"profile":{"id":19,"pseudo":"Bewiwi","contact":"Bonjonr hihihi,\n\nJe m''appelle Bewiwi~\nJe cherche \u00e0 d\u00e9couvrir des nouvelles technologies\n\n(\u2312\u203f\u2312)"}}]}'
+        headers: []
+        description: null
+    responseFields: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/v1/projects/{id}'
+    metadata:
+      title: 'Display the specified project.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'Project ID'
+        required: true
+        example: 12
+        type: integer
+        custom: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":{"id":11,"name":"Desktop Application","description":"Projet de la soutenance finale","image":"https:\/\/images.pexels.com\/photos\/4678283\/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1","tags":[{"id":2,"name":"vue"},{"id":6,"name":"laravel"},{"id":9,"name":"mysql"},{"id":11,"name":"electron"}],"profile":{"id":19,"pseudo":"Bewiwi","contact":"Bonjonr hihihi,\n\nJe m''appelle Bewiwi~\nJe cherche \u00e0 d\u00e9couvrir des nouvelles technologies\n\n(\u2312\u203f\u2312)"}}}'
+        headers: []
+        description: null
+    responseFields: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/v1/projects/{id}'
+    metadata:
+      title: 'Update the specified project in storage.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'Project ID'
+        required: true
+        example: 6
+        type: integer
+        custom: []
+    queryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Name of the project.'
+        required: true
+        example: 'Project 1'
+        type: string
+        custom: []
+      description:
+        name: description
+        description: 'Description of the project.'
+        required: true
+        example: 'This project is very cool'
+        type: string
+        custom: []
+      image:
+        name: image
+        description: 'Image of the project.'
+        required: false
+        example: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+        type: string
+        custom: []
+      tags:
+        name: tags
+        description: 'List of tag id the project.'
+        required: false
+        example:
+          - 1
+          - 2
+        type: 'string[]'
+        custom: []
+    responses:
+      -
+        status: 200
+        content: '{"data":{"id":11,"name":"Desktop Application","description":"Projet de la soutenance finale","image":"https:\/\/images.pexels.com\/photos\/4678283\/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1","tags":[{"id":2,"name":"vue"},{"id":6,"name":"laravel"},{"id":9,"name":"mysql"},{"id":11,"name":"electron"}],"profile":{"id":19,"pseudo":"Bewiwi","contact":"Bonjonr hihihi,\n\nJe m''appelle Bewiwi~\nJe cherche \u00e0 d\u00e9couvrir des nouvelles technologies\n\n(\u2312\u203f\u2312)"}}}'
+        headers: []
+        description: null
+    responseFields: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/v1/projects/{id}'
+    metadata:
+      title: 'Remove the specified project from storage.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the project.'
+        required: true
+        example: 11
+        type: integer
+        custom: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 204
+        content: '{}'
+        headers: []
+        description: '204'
+    responseFields: []
