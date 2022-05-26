@@ -9,19 +9,30 @@ use App\Http\Resources\ProjectResource;
 use App\Models\Profile;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @group Project Management
+ * 
+ * API's call for project resources.
+ */
 class ProjectController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of projects.
      * 
-     * @return \Illuminate\Http\Response
+     * @queryParam page int Page to view. Example: 1
+     * @queryParam match bool Matching projects with profile preferences. Example: 0
+     * 
+     * @apiResourceCollection App\Http\Resources\ProjectResource
+     * @apiResourceModel App\Models\Project with=profile,tags
+     * 
+     * @return ResourceCollection
      */
     public function index()
     {
         $projects = Project::with(['tags', 'profile']);
 
         // Filters project. We get only projects where project tags includes authenticated user tags
-        $match = request()->exists('match');
+        $match = request('match');
         if ($match) {
             $tags = Profile::where('user_id', Auth::id())->first()->tags()->get(['id']);
             $projects = $projects->whereHas('tags', function ($query) use ($tags) {
@@ -33,10 +44,18 @@ class ProjectController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created project in storage.
+     * 
+     * @bodyParam name string required Name of the project. Example: Project 1
+     * @bodyParam description string required Description of the project. Example: This project is very cool
+     * @bodyParam image string Image of the project. Example: https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+     * @bodyParam tags array List of tag id the project. Example: [1, 2]
      *
+     * @apiResourceCollection App\Http\Resources\ProjectResource
+     * @apiResourceModel App\Models\Project with=profile,tags
+     * 
      * @param  \App\Http\Requests\StoreProjectRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return ProjectResource
      */
     public function store(StoreProjectRequest $request)
     {
@@ -57,10 +76,15 @@ class ProjectController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified project.
      *
+     * @urlParam id int required Project ID
+     * 
+     * @apiResource App\Http\Resources\ProjectResource
+     * @apiResourceModel App\Models\Project with=profile,tags
+     * 
      * @param  \App\Models\Project  $project
-     * @return \Illuminate\Http\Response
+     * @return ProjectResource
      */
     public function show(Project $project)
     {
@@ -69,7 +93,17 @@ class ProjectController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified project in storage.
+     * 
+     * @urlParam id int required Project ID
+     * 
+     * @bodyParam name string required Name of the project. Example: Project 1
+     * @bodyParam description string required Description of the project. Example: This project is very cool
+     * @bodyParam image string Image of the project. Example: https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+     * @bodyParam tags array List of tag id the project. Example: [1, 2]
+     * 
+     * @apiResource App\Http\Resources\ProjectResource
+     * @apiResourceModel App\Models\Project with=profile,tags
      *
      * @param  \App\Http\Requests\UpdateProjectRequest  $request
      * @param  \App\Models\Project  $project
@@ -85,8 +119,10 @@ class ProjectController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified project from storage.
      *
+     * @response 204
+     * 
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
