@@ -22,21 +22,21 @@ endpoints:
         name: name
         description: ''
         required: true
-        example: veniam
+        example: praesentium
         type: string
         custom: []
       email:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: ryann34@example.net
+        example: neal.ullrich@example.com
         type: string
         custom: []
       password:
         name: password
         description: ''
         required: true
-        example: voluptatem
+        example: ut
         type: string
         custom: []
     responses: []
@@ -60,14 +60,14 @@ endpoints:
         name: email
         description: 'Must be a valid email address.'
         required: true
-        example: eugene30@example.com
+        example: ntowne@example.net
         type: string
         custom: []
       password:
         name: password
         description: ''
         required: true
-        example: provident
+        example: incidunt
         type: string
         custom: []
     responses: []
