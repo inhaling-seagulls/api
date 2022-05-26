@@ -26,7 +26,7 @@ Route::prefix('v1')->group(function () {
 
     // Protected routes
     Route::middleware('auth:sanctum')->group(function () {
-        Route::post('me', [AuthController::class, 'me']);
+        Route::get('me', [AuthController::class, 'me']);
         Route::get('logout', [AuthController::class, 'logout']);
 
         Route::apiResource('profiles', ProfileController::class);
