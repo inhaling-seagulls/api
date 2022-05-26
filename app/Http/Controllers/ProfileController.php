@@ -8,12 +8,22 @@ use App\Http\Requests\StoreProfileRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * @group Profile Management
+ * 
+ * API's call for profile resources.
+ */
 class ProfileController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Display a listing of profiles.
+     * 
+     * @queryParam page int Page to view. Example: 1
+     * 
+     * @apiResourceCollection App\Http\Resources\ProfileResource
+     * @apiResourceModel App\Models\Profile with=projects,tags
+     * 
+     * @return ResourceCollection
      */
     public function index()
     {
@@ -21,10 +31,17 @@ class ProfileController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created profile in storage.
+     * 
+     * @bodyParam pseudo string required Pseudo of the profile. Example: JohnDoe06
+     * @bodyParam contact string required Contact of the profile. Example: Linkedin : JohnDoe06 Tel: 00 00 00 00 00
+     * @bodyParam tags array List of tag id the profile. Example: [1, 2]
      *
-     * @param  \App\Http\Requests\StoreProfileRequest  $request
-     * @return \Illuminate\Http\Response
+     * @apiResource App\Http\Resources\ProfileResource
+     * @apiResourceModel App\Models\Profile with=projects,tags
+     * 
+     * @param  \App\Http\Requests\StoreProjectRequest  $request
+     * @return ProfileResource
      */
     public function store(StoreProfileRequest $request)
     {
@@ -40,10 +57,15 @@ class ProfileController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified profile.
      *
+     * @urlParam id int required Profile ID
+     * 
+     * @apiResource App\Http\Resources\ProfileResource
+     * @apiResourceModel App\Models\Profile with=projects,tags
+     * 
      * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
+     * @return ProfileResource
      */
     public function show(Profile $profile)
     {
@@ -52,11 +74,19 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Store a newly created profile in storage.
+     * 
+     * @urlParam id int required Profile ID
+     * 
+     * @bodyParam pseudo string required Pseudo of the profile. Example: JohnDoe06
+     * @bodyParam contact string required Contact of the profile. Example: Linkedin : JohnDoe06 Tel: 00 00 00 00 00
+     * @bodyParam tags array List of tag id the profile. Example: [1, 2]
      *
+     * @apiResource App\Http\Resources\ProfileResource
+     * @apiResourceModel App\Models\Profile with=projects,tags
+     * 
      * @param  \App\Http\Requests\UpdateProfileRequest  $request
-     * @param  \App\Models\Profile  $profile
-     * @return \Illuminate\Http\Response
+     * @return ProfileResource
      */
     public function update(UpdateProfileRequest $request, Profile $profile)
     {
@@ -68,8 +98,10 @@ class ProfileController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified profile from storage.
      *
+     * @response 204
+     * 
      * @param  \App\Models\Profile  $profile
      * @return \Illuminate\Http\Response
      */

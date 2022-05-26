@@ -30,6 +30,8 @@ php artisan serve
 
 ## Use the API
 
+You can go to {yourbaseurl}/docs to check the documentation
+
 ### Routes
 
 #### Profiles
