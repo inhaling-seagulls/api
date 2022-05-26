@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Project;
 use App\Http\Resources\ProjectResource;
-use App\Models\Profile;
-use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -21,13 +19,17 @@ class ProjectController extends Controller
         // Filters project. We get only projects where project tags includes authenticated user tags
         $match = request()->exists('match');
         if ($match) {
-            $tags = Profile::where('user_id', Auth::id())->first()->tags()->get(['id']);
+
+            // We fetch all tag ids of the current user
+            $tags = auth()->user()->profile()->first()->tags()->get(['id']);
+
+            // This filters out all projects that don't share at least one tag with the user
             $projects = $projects->whereHas('tags', function ($query) use ($tags) {
                 return $query->whereIn('id', $tags);
             });
         }
 
-        return ProjectResource::collection($projects->paginate());
+        return ProjectResource::collection($projects->paginate(3));
     }
 
     /**

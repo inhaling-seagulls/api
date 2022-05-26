@@ -16,7 +16,7 @@ class ProfileProjectController extends Controller
      */
     public function index(Profile $profile)
     {
-        $projects = $profile->projects()->with('tags')->get();
+        $projects = $profile->projects()->with('tags')->paginate(3);
         return ProjectResource::collection($projects);
     }
 
@@ -29,6 +29,9 @@ class ProfileProjectController extends Controller
      */
     public function store(Profile $profile, Request $request)
     {
+        // Just in case, we check if this is the right person who tries to store
+        if ($profile->user_id !== auth()->id()) return response(["message" => "This resource belongs to another account"], 403);
+
         $project = $profile->projects()->create([
             'name' => $request->input('name'),
             'description' => $request->input('description'),
@@ -64,6 +67,9 @@ class ProfileProjectController extends Controller
      */
     public function update(Request $request, Profile $profile, $id)
     {
+        // Just in case, we check if this is the right person who tries to update
+        if ($profile->user_id !== auth()->id()) return response(["message" => "This resource belongs to another account"], 403);
+
         $project = $profile->projects()->find($id);
         $project->update($request->all());
         $project->tags()->sync($request->tags);
@@ -81,6 +87,9 @@ class ProfileProjectController extends Controller
      */
     public function destroy(Profile $profile, $id)
     {
+        // Just in case, we check if this is the right person who tries to delete
+        if ($profile->user_id !== auth()->id()) return response(["message" => "This resource belongs to another account"], 403);
+
         $profile->projects()->find($id)->delete();
 
         return response('', 204);

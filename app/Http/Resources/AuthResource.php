@@ -18,7 +18,6 @@ class AuthResource extends JsonResource
             "id" => $this->id,
             "name" => $this->name,
             "email" => $this->email,
-            "token" => $this->token,
             "profile" => new ProfileResource($this->whenLoaded('profile')),
         ];
     }

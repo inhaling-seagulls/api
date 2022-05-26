@@ -5,7 +5,6 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileProjectController;
 use App\Http\Controllers\TagController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,17 +19,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function () {
-    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-        return $request->user();
-    });
-
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
-    Route::get('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
-    Route::apiResource('profiles', ProfileController::class, ['only' => ['index', 'show']])->middleware('auth:sanctum');
-    Route::apiResource('profiles/{profile}/projects', ProfileProjectController::class)->middleware('auth:sanctum');
-
-    Route::apiResource('projects', ProjectController::class)->middleware('auth:sanctum');
     Route::apiResource('tags', TagController::class, ['only' => ['index']]);
+
+    // Protected routes
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('me', [AuthController::class, 'me']);
+        Route::get('logout', [AuthController::class, 'logout']);
+
+        Route::apiResource('profiles', ProfileController::class);
+
+        Route::apiResource('projects', ProjectController::class, ['only' => ['index', 'show']]);
+        Route::apiResource('profiles/{profile}/projects', ProfileProjectController::class);
+    });
 });
