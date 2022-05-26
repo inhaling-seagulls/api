@@ -72,12 +72,7 @@ endpoints:
           - 2
         type: 'string[]'
         custom: []
-    responses:
-      -
-        status: 200
-        content: '{"data":{"id":18,"pseudo":"test","contact":"ttttees","tags":[{"id":3,"name":"angular"},{"id":11,"name":"electron"}],"projects":[]}}'
-        headers: []
-        description: null
+    responses: []
     responseFields: []
   -
     httpMethods:
@@ -96,7 +91,7 @@ endpoints:
         name: id
         description: 'Profile ID'
         required: true
-        example: 13
+        example: 6
         type: integer
         custom: []
     queryParameters: []
@@ -126,7 +121,7 @@ endpoints:
         name: id
         description: 'Profile ID'
         required: true
-        example: 3
+        example: 14
         type: integer
         custom: []
     queryParameters: []
@@ -154,12 +149,7 @@ endpoints:
           - 2
         type: 'string[]'
         custom: []
-    responses:
-      -
-        status: 200
-        content: '{"data":{"id":18,"pseudo":"test","contact":"ttttees","tags":[{"id":3,"name":"angular"},{"id":11,"name":"electron"}],"projects":[]}}'
-        headers: []
-        description: null
+    responses: []
     responseFields: []
   -
     httpMethods:
