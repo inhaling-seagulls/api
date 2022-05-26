@@ -75,16 +75,16 @@
                 </li>
                                     <ul id="tocify-subheader-authentication-management" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="authentication-management-POSTapi-v1-register">
-                        <a href="#authentication-management-POSTapi-v1-register">Store a newly created user in storage.</a>
+                        <a href="#authentication-management-POSTapi-v1-register">Store a newly created user in storage and return a newly created token.</a>
                     </li>
                                     <li class="tocify-item level-2" data-unique="authentication-management-POSTapi-v1-login">
-                        <a href="#authentication-management-POSTapi-v1-login">Store a newly created token in storage.</a>
+                        <a href="#authentication-management-POSTapi-v1-login">Create a new token in storage and returns it.</a>
                     </li>
                                     <li class="tocify-item level-2" data-unique="authentication-management-GETapi-v1-logout">
-                        <a href="#authentication-management-GETapi-v1-logout">Delete all current user token in storage.</a>
+                        <a href="#authentication-management-GETapi-v1-logout">Remove all user&#039;s tokens from storage.</a>
                     </li>
-                                    <li class="tocify-item level-2" data-unique="authentication-management-POSTapi-v1-me">
-                        <a href="#authentication-management-POSTapi-v1-me">Get all user info (except password, token, timestamps).</a>
+                                    <li class="tocify-item level-2" data-unique="authentication-management-GETapi-v1-me">
+                        <a href="#authentication-management-GETapi-v1-me">Display user info.</a>
                     </li>
                                                     </ul>
                             </ul>
@@ -181,7 +181,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
     <p>API's call to manage authentication services.</p>
 
-            <h2 id="authentication-management-POSTapi-v1-register">Store a newly created user in storage.</h2>
+            <h2 id="authentication-management-POSTapi-v1-register">Store a newly created user in storage and return a newly created token.</h2>
 
 <p>
 </p>
@@ -198,9 +198,9 @@ You can switch the language used with the tabs at the top right (or from the nav
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"ut\",
-    \"email\": \"emile.bartell@example.org\",
-    \"password\": \"excepturi\"
+    \"name\": \"John Doe\",
+    \"email\": \"johndoe@gmail.com\",
+    \"password\": \"password123\"
 }"
 </code></pre></div>
 
@@ -216,9 +216,9 @@ const headers = {
 };
 
 let body = {
-    "name": "ut",
-    "email": "emile.bartell@example.org",
-    "password": "excepturi"
+    "name": "John Doe",
+    "email": "johndoe@gmail.com",
+    "password": "password123"
 };
 
 fetch(url, {
@@ -230,7 +230,18 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-register">
-</span>
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;data&quot;: {
+        &quot;token&quot;: &quot;api-token&quot;
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-register" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-register"></span>:
@@ -276,34 +287,34 @@ fetch(url, {
                 <input type="text"
                name="name"
                data-endpoint="POSTapi-v1-register"
-               value="ut"
+               value="John Doe"
                data-component="body" hidden>
     <br>
-
+<p>Name of the User.</p>
         </p>
                 <p>
             <b><code>email</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
                 <input type="text"
                name="email"
                data-endpoint="POSTapi-v1-register"
-               value="emile.bartell@example.org"
+               value="johndoe@gmail.com"
                data-component="body" hidden>
     <br>
-<p>Must be a valid email address.</p>
+<p>Email of the User.</p>
         </p>
                 <p>
-            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
                 <input type="text"
                name="password"
                data-endpoint="POSTapi-v1-register"
-               value="excepturi"
+               value="password123"
                data-component="body" hidden>
     <br>
-
+<p>Password of the User.</p>
         </p>
         </form>
 
-            <h2 id="authentication-management-POSTapi-v1-login">Store a newly created token in storage.</h2>
+            <h2 id="authentication-management-POSTapi-v1-login">Create a new token in storage and returns it.</h2>
 
 <p>
 </p>
@@ -320,8 +331,8 @@ fetch(url, {
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"xthiel@example.com\",
-    \"password\": \"animi\"
+    \"email\": \"johndoe@gmail.com\",
+    \"password\": \"password123\"
 }"
 </code></pre></div>
 
@@ -337,8 +348,8 @@ const headers = {
 };
 
 let body = {
-    "email": "xthiel@example.com",
-    "password": "animi"
+    "email": "johndoe@gmail.com",
+    "password": "password123"
 };
 
 fetch(url, {
@@ -350,7 +361,18 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-login">
-</span>
+            <blockquote>
+            <p>Example response (201):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;data&quot;: {
+        &quot;token&quot;: &quot;api-token&quot;
+    }
+}</code>
+ </pre>
+    </span>
 <span id="execution-results-POSTapi-v1-login" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-login"></span>:
@@ -396,24 +418,24 @@ fetch(url, {
                 <input type="text"
                name="email"
                data-endpoint="POSTapi-v1-login"
-               value="xthiel@example.com"
+               value="johndoe@gmail.com"
                data-component="body" hidden>
     <br>
-<p>Must be a valid email address.</p>
+<p>Email of the User.</p>
         </p>
                 <p>
-            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+            <b><code>password</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
                 <input type="text"
                name="password"
                data-endpoint="POSTapi-v1-login"
-               value="animi"
+               value="password123"
                data-component="body" hidden>
     <br>
-
+<p>Password of the User.</p>
         </p>
         </form>
 
-            <h2 id="authentication-management-GETapi-v1-logout">Delete all current user token in storage.</h2>
+            <h2 id="authentication-management-GETapi-v1-logout">Remove all user&#039;s tokens from storage.</h2>
 
 <p>
 </p>
@@ -450,21 +472,10 @@ fetch(url, {
 
 <span id="example-responses-GETapi-v1-logout">
             <blockquote>
-            <p>Example response (401):</p>
+            <p>Example response (204):</p>
         </blockquote>
-                <details class="annotation">
-            <summary>
-                <small onclick="textContent = parentElement.parentElement.open ? 'Show headers' : 'Hide headers'">Show headers</small>
-            </summary>
-            <pre><code class="language-http">cache-control: no-cache, private
-content-type: application/json
-access-control-allow-origin: *
- </code></pre>
-        </details>         <pre>
-
-<code class="language-json">{
-    &quot;message&quot;: &quot;Unauthenticated.&quot;
-}</code>
+                <pre>
+<code>[Empty response]</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-v1-logout" hidden>
@@ -508,20 +519,20 @@ access-control-allow-origin: *
         </p>
                     </form>
 
-            <h2 id="authentication-management-POSTapi-v1-me">Get all user info (except password, token, timestamps).</h2>
+            <h2 id="authentication-management-GETapi-v1-me">Display user info.</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-POSTapi-v1-me">
+<span id="example-requests-GETapi-v1-me">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
-    <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/v1/me" \
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/v1/me" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
@@ -537,51 +548,80 @@ const headers = {
 };
 
 fetch(url, {
-    method: "POST",
+    method: "GET",
     headers,
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
-<span id="example-responses-POSTapi-v1-me">
-</span>
-<span id="execution-results-POSTapi-v1-me" hidden>
+<span id="example-responses-GETapi-v1-me">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 6,
+        &quot;name&quot;: &quot;un nom&quot;,
+        &quot;email&quot;: &quot;test@email.fr&quot;,
+        &quot;profile&quot;: {
+            &quot;id&quot;: 22,
+            &quot;pseudo&quot;: &quot;MaxiPone&quot;,
+            &quot;contact&quot;: &quot;nope pa envi&quot;,
+            &quot;tags&quot;: [
+                {
+                    &quot;id&quot;: 1,
+                    &quot;name&quot;: &quot;react&quot;
+                },
+                {
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;vue&quot;
+                }
+            ],
+            &quot;projects&quot;: []
+        }
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-GETapi-v1-me" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-POSTapi-v1-me"></span>:
+                id="execution-response-status-GETapi-v1-me"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-v1-me"></code></pre>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-me"></code></pre>
 </span>
-<span id="execution-error-POSTapi-v1-me" hidden>
+<span id="execution-error-GETapi-v1-me" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-v1-me"></code></pre>
+    <pre><code id="execution-error-message-GETapi-v1-me"></code></pre>
 </span>
-<form id="form-POSTapi-v1-me" data-method="POST"
+<form id="form-GETapi-v1-me" data-method="GET"
       data-path="api/v1/me"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-me', this);">
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-me', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-v1-me"
-                    onclick="tryItOut('POSTapi-v1-me');">Try it out ⚡
+                    id="btn-tryout-GETapi-v1-me"
+                    onclick="tryItOut('GETapi-v1-me');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-v1-me"
-                    onclick="cancelTryOut('POSTapi-v1-me');" hidden>Cancel 🛑
+                    id="btn-canceltryout-GETapi-v1-me"
+                    onclick="cancelTryOut('GETapi-v1-me');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-v1-me" hidden>Send Request 💥
+                    id="btn-executetryout-GETapi-v1-me" hidden>Send Request 💥
             </button>
             </h3>
             <p>
-            <small class="badge badge-black">POST</small>
+            <small class="badge badge-green">GET</small>
             <b><code>api/v1/me</code></b>
         </p>
                     </form>
@@ -871,14 +911,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/profiles/6" \
+    --get "http://localhost/api/v1/profiles/5" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/profiles/6"
+    "http://localhost/api/v1/profiles/5"
 );
 
 const headers = {
@@ -964,7 +1004,7 @@ fetch(url, {
                 <input type="number"
                name="id"
                data-endpoint="GETapi-v1-profiles--id-"
-               value="6"
+               value="5"
                data-component="url" hidden>
     <br>
 <p>Profile ID</p>
@@ -984,7 +1024,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/v1/profiles/14" \
+    "http://localhost/api/v1/profiles/2" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1000,7 +1040,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/profiles/14"
+    "http://localhost/api/v1/profiles/2"
 );
 
 const headers = {
@@ -1076,7 +1116,7 @@ fetch(url, {
                 <input type="number"
                name="id"
                data-endpoint="PUTapi-v1-profiles--id-"
-               value="14"
+               value="2"
                data-component="url" hidden>
     <br>
 <p>Profile ID</p>
@@ -1414,14 +1454,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/profiles/2/projects?page=1&amp;match=" \
+    --get "http://localhost/api/v1/profiles/11/projects?page=1&amp;match=" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/profiles/2/projects"
+    "http://localhost/api/v1/profiles/11/projects"
 );
 
 const params = {
@@ -1558,7 +1598,7 @@ fetch(url, {
                 <input type="number"
                name="profile"
                data-endpoint="GETapi-v1-profiles--profile--projects"
-               value="2"
+               value="11"
                data-component="url" hidden>
     <br>
 <p>Profile ID</p>
@@ -1610,14 +1650,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/projects/6" \
+    --get "http://localhost/api/v1/projects/8" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/projects/6"
+    "http://localhost/api/v1/projects/8"
 );
 
 const headers = {
@@ -1716,7 +1756,7 @@ fetch(url, {
                 <input type="number"
                name="id"
                data-endpoint="GETapi-v1-projects--id-"
-               value="6"
+               value="8"
                data-component="url" hidden>
     <br>
 <p>Project ID</p>
@@ -1736,7 +1776,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/v1/profiles/19/projects" \
+    "http://localhost/api/v1/profiles/9/projects" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1753,7 +1793,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/profiles/19/projects"
+    "http://localhost/api/v1/profiles/9/projects"
 );
 
 const headers = {
@@ -1894,7 +1934,7 @@ fetch(url, {
                 <input type="number"
                name="profile"
                data-endpoint="POSTapi-v1-profiles--profile--projects"
-               value="19"
+               value="9"
                data-component="url" hidden>
     <br>
 <p>Profile ID</p>
@@ -1958,14 +1998,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/profiles/5/projects/18" \
+    --get "http://localhost/api/v1/profiles/5/projects/19" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/profiles/5/projects/18"
+    "http://localhost/api/v1/profiles/5/projects/19"
 );
 
 const headers = {
@@ -2074,7 +2114,7 @@ fetch(url, {
                 <input type="number"
                name="id"
                data-endpoint="GETapi-v1-profiles--profile--projects--id-"
-               value="18"
+               value="19"
                data-component="url" hidden>
     <br>
 <p>Project ID</p>
@@ -2094,7 +2134,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/v1/profiles/1/projects/4" \
+    "http://localhost/api/v1/profiles/19/projects/20" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -2111,7 +2151,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/profiles/1/projects/4"
+    "http://localhost/api/v1/profiles/19/projects/20"
 );
 
 const headers = {
@@ -2225,7 +2265,7 @@ fetch(url, {
                 <input type="number"
                name="profile"
                data-endpoint="PUTapi-v1-profiles--profile--projects--id-"
-               value="1"
+               value="19"
                data-component="url" hidden>
     <br>
 <p>Profile ID</p>
@@ -2235,7 +2275,7 @@ fetch(url, {
                 <input type="number"
                name="id"
                data-endpoint="PUTapi-v1-profiles--profile--projects--id-"
-               value="4"
+               value="20"
                data-component="url" hidden>
     <br>
 <p>Project ID</p>
@@ -2299,14 +2339,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/v1/profiles/1/projects/12" \
+    "http://localhost/api/v1/profiles/19/projects/4" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/profiles/1/projects/12"
+    "http://localhost/api/v1/profiles/19/projects/4"
 );
 
 const headers = {
@@ -2374,7 +2414,7 @@ fetch(url, {
                 <input type="number"
                name="profile"
                data-endpoint="DELETEapi-v1-profiles--profile--projects--id-"
-               value="1"
+               value="19"
                data-component="url" hidden>
     <br>
 <p>Profile ID</p>
@@ -2384,7 +2424,7 @@ fetch(url, {
                 <input type="number"
                name="id"
                data-endpoint="DELETEapi-v1-profiles--profile--projects--id-"
-               value="12"
+               value="4"
                data-component="url" hidden>
     <br>
 <p>The ID of the project.</p>

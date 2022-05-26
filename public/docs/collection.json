@@ -10,7 +10,7 @@
     ],
     "info": {
         "name": "Laravel",
-        "_postman_id": "3b0c7bed-ef20-4748-93e9-5fd05482ffdf",
+        "_postman_id": "3368a7c3-2784-4c04-a2bf-3ec279ec1c3e",
         "description": "",
         "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
     },
@@ -20,7 +20,7 @@
             "description": "\nAPI's call to manage authentication services.",
             "item": [
                 {
-                    "name": "Store a newly created user in storage.",
+                    "name": "Store a newly created user in storage and return a newly created token.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -41,17 +41,24 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"name\":\"ut\",\"email\":\"emile.bartell@example.org\",\"password\":\"excepturi\"}"
+                            "raw": "{\"name\":\"John Doe\",\"email\":\"johndoe@gmail.com\",\"password\":\"password123\"}"
                         },
                         "description": "",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"data\": {\n     \"token\" : \"api-token\"\n  }\n}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
-                    "name": "Store a newly created token in storage.",
+                    "name": "Create a new token in storage and returns it.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -72,17 +79,24 @@
                         ],
                         "body": {
                             "mode": "raw",
-                            "raw": "{\"email\":\"xthiel@example.com\",\"password\":\"animi\"}"
+                            "raw": "{\"email\":\"johndoe@gmail.com\",\"password\":\"password123\"}"
                         },
                         "description": "",
                         "auth": {
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 201,
+                            "body": "{\n \"data\": {\n     \"token\" : \"api-token\"\n  }\n}",
+                            "name": ""
+                        }
+                    ]
                 },
                 {
-                    "name": "Delete all current user token in storage.",
+                    "name": "Remove all user's tokens from storage.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -109,28 +123,15 @@
                     },
                     "response": [
                         {
-                            "header": [
-                                {
-                                    "key": "cache-control",
-                                    "value": "no-cache, private"
-                                },
-                                {
-                                    "key": "content-type",
-                                    "value": "application\/json"
-                                },
-                                {
-                                    "key": "access-control-allow-origin",
-                                    "value": "*"
-                                }
-                            ],
-                            "code": 401,
-                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "header": [],
+                            "code": 204,
+                            "body": "{}",
                             "name": ""
                         }
                     ]
                 },
                 {
-                    "name": "Get all user info (except password, token, timestamps).",
+                    "name": "Display user info.",
                     "request": {
                         "url": {
                             "host": "{{baseUrl}}",
@@ -138,7 +139,7 @@
                             "query": [],
                             "raw": "{{baseUrl}}\/api\/v1\/me"
                         },
-                        "method": "POST",
+                        "method": "GET",
                         "header": [
                             {
                                 "key": "Content-Type",
@@ -155,7 +156,14 @@
                             "type": "noauth"
                         }
                     },
-                    "response": []
+                    "response": [
+                        {
+                            "header": [],
+                            "code": 200,
+                            "body": "{\"data\":{\"id\":6,\"name\":\"un nom\",\"email\":\"test@email.fr\",\"profile\":{\"id\":22,\"pseudo\":\"MaxiPone\",\"contact\":\"nope pa envi\",\"tags\":[{\"id\":1,\"name\":\"react\"},{\"id\":2,\"name\":\"vue\"}],\"projects\":[]}}}",
+                            "name": ""
+                        }
+                    ]
                 }
             ]
         },
@@ -248,7 +256,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "6",
+                                    "value": "5",
                                     "description": "Profile ID"
                                 }
                             ]
@@ -291,7 +299,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "14",
+                                    "value": "2",
                                     "description": "Profile ID"
                                 }
                             ]
@@ -440,7 +448,7 @@
                                 {
                                     "id": "profile",
                                     "key": "profile",
-                                    "value": "2",
+                                    "value": "11",
                                     "description": "Profile ID"
                                 }
                             ]
@@ -483,7 +491,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "6",
+                                    "value": "8",
                                     "description": "Project ID"
                                 }
                             ]
@@ -526,7 +534,7 @@
                                 {
                                     "id": "profile",
                                     "key": "profile",
-                                    "value": "19",
+                                    "value": "9",
                                     "description": "Profile ID"
                                 }
                             ]
@@ -578,7 +586,7 @@
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "18",
+                                    "value": "19",
                                     "description": "Project ID"
                                 }
                             ]
@@ -621,13 +629,13 @@
                                 {
                                     "id": "profile",
                                     "key": "profile",
-                                    "value": "1",
+                                    "value": "19",
                                     "description": "Profile ID"
                                 },
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "4",
+                                    "value": "20",
                                     "description": "Project ID"
                                 }
                             ]
@@ -673,13 +681,13 @@
                                 {
                                     "id": "profile",
                                     "key": "profile",
-                                    "value": "1",
+                                    "value": "19",
                                     "description": "Profile ID"
                                 },
                                 {
                                     "id": "id",
                                     "key": "id",
-                                    "value": "12",
+                                    "value": "4",
                                     "description": "The ID of the project."
                                 }
                             ]

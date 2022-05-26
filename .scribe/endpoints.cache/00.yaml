@@ -10,7 +10,7 @@ endpoints:
       - POST
     uri: api/v1/register
     metadata:
-      title: 'Store a newly created user in storage.'
+      title: 'Store a newly created user in storage and return a newly created token.'
       description: ''
       authenticated: false
       custom: []
@@ -22,33 +22,43 @@ endpoints:
     bodyParameters:
       name:
         name: name
-        description: ''
+        description: 'Name of the User.'
         required: true
-        example: ut
+        example: 'John Doe'
         type: string
         custom: []
       email:
         name: email
-        description: 'Must be a valid email address.'
+        description: 'Email of the User.'
         required: true
-        example: emile.bartell@example.org
+        example: johndoe@gmail.com
         type: string
         custom: []
       password:
         name: password
-        description: ''
-        required: true
-        example: excepturi
+        description: 'Password of the User.'
+        required: false
+        example: password123
         type: string
         custom: []
-    responses: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+           "data": {
+               "token" : "api-token"
+            }
+          }
+        headers: []
+        description: '201'
     responseFields: []
   -
     httpMethods:
       - POST
     uri: api/v1/login
     metadata:
-      title: 'Store a newly created token in storage.'
+      title: 'Create a new token in storage and returns it.'
       description: ''
       authenticated: false
       custom: []
@@ -60,26 +70,36 @@ endpoints:
     bodyParameters:
       email:
         name: email
-        description: 'Must be a valid email address.'
+        description: 'Email of the User.'
         required: true
-        example: xthiel@example.com
+        example: johndoe@gmail.com
         type: string
         custom: []
       password:
         name: password
-        description: ''
-        required: true
-        example: animi
+        description: 'Password of the User.'
+        required: false
+        example: password123
         type: string
         custom: []
-    responses: []
+    responses:
+      -
+        status: 201
+        content: |-
+          {
+           "data": {
+               "token" : "api-token"
+            }
+          }
+        headers: []
+        description: '201'
     responseFields: []
   -
     httpMethods:
       - GET
     uri: api/v1/logout
     metadata:
-      title: 'Delete all current user token in storage.'
+      title: 'Remove all user''s tokens from storage.'
       description: ''
       authenticated: false
       custom: []
@@ -91,20 +111,17 @@ endpoints:
     bodyParameters: []
     responses:
       -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
+        status: 204
+        content: '{}'
+        headers: []
+        description: '204'
     responseFields: []
   -
     httpMethods:
-      - POST
+      - GET
     uri: api/v1/me
     metadata:
-      title: 'Get all user info (except password, token, timestamps).'
+      title: 'Display user info.'
       description: ''
       authenticated: false
       custom: []
@@ -114,5 +131,10 @@ endpoints:
     urlParameters: []
     queryParameters: []
     bodyParameters: []
-    responses: []
+    responses:
+      -
+        status: 200
+        content: '{"data":{"id":6,"name":"un nom","email":"test@email.fr","profile":{"id":22,"pseudo":"MaxiPone","contact":"nope pa envi","tags":[{"id":1,"name":"react"},{"id":2,"name":"vue"}],"projects":[]}}}'
+        headers: []
+        description: null
     responseFields: []

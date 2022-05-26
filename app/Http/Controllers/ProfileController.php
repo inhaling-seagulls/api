@@ -25,7 +25,7 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        return ProfileResource::collection(Profile::with(['tags', 'projects'])->paginate(3));
+        return ProfileResource::collection(Profile::with(['tags', 'projects'])->paginate(2));
     }
 
     /**

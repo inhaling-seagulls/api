@@ -9,94 +9,7 @@ servers:
 paths:
   /api/v1/register:
     post:
-      summary: 'Store a newly created user in storage.'
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses: {  }
-      tags:
-        - 'Authentication Management'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: ''
-                  example: ut
-                email:
-                  type: string
-                  description: 'Must be a valid email address.'
-                  example: emile.bartell@example.org
-                password:
-                  type: string
-                  description: ''
-                  example: excepturi
-              required:
-                - name
-                - email
-                - password
-      security: []
-  /api/v1/login:
-    post:
-      summary: 'Store a newly created token in storage.'
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses: {  }
-      tags:
-        - 'Authentication Management'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: 'Must be a valid email address.'
-                  example: xthiel@example.com
-                password:
-                  type: string
-                  description: ''
-                  example: animi
-              required:
-                - email
-                - password
-      security: []
-  /api/v1/logout:
-    get:
-      summary: 'Delete all current user token in storage.'
+      summary: 'Store a newly created user in storage and return a newly created token.'
       description: ''
       parameters:
         -
@@ -114,24 +27,48 @@ paths:
           schema:
             type: string
       responses:
-        401:
+        201:
           description: ''
           content:
             application/json:
               schema:
                 type: object
                 example:
-                  message: Unauthenticated.
+                  data:
+                    token: api-token
                 properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
+                  data:
+                    type: object
+                    example:
+                      token: api-token
       tags:
         - 'Authentication Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the User.'
+                  example: 'John Doe'
+                email:
+                  type: string
+                  description: 'Email of the User.'
+                  example: johndoe@gmail.com
+                password:
+                  type: string
+                  description: 'Password of the User.'
+                  example: password123
+              required:
+                - name
+                - email
       security: []
-  /api/v1/me:
+  /api/v1/login:
     post:
-      summary: 'Get all user info (except password, token, timestamps).'
+      summary: 'Create a new token in storage and returns it.'
       description: ''
       parameters:
         -
@@ -148,7 +85,128 @@ paths:
           example: application/json
           schema:
             type: string
-      responses: {  }
+      responses:
+        201:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    token: api-token
+                properties:
+                  data:
+                    type: object
+                    example:
+                      token: api-token
+      tags:
+        - 'Authentication Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Email of the User.'
+                  example: johndoe@gmail.com
+                password:
+                  type: string
+                  description: 'Password of the User.'
+                  example: password123
+              required:
+                - email
+      security: []
+  /api/v1/logout:
+    get:
+      summary: 'Remove all user''s tokens from storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        204:
+          description: ''
+      tags:
+        - 'Authentication Management'
+      security: []
+  /api/v1/me:
+    get:
+      summary: 'Display user info.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 6
+                    name: 'un nom'
+                    email: test@email.fr
+                    profile:
+                      id: 22
+                      pseudo: MaxiPone
+                      contact: 'nope pa envi'
+                      tags:
+                        -
+                          id: 1
+                          name: react
+                        -
+                          id: 2
+                          name: vue
+                      projects: []
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: 6
+                      name: 'un nom'
+                      email: test@email.fr
+                      profile:
+                        id: 22
+                        pseudo: MaxiPone
+                        contact: 'nope pa envi'
+                        tags:
+                          -
+                            id: 1
+                            name: react
+                          -
+                            id: 2
+                            name: vue
+                        projects: []
       tags:
         - 'Authentication Management'
       security: []
@@ -429,7 +487,7 @@ paths:
         in: path
         name: id
         description: 'Profile ID'
-        example: 6
+        example: 5
         required: true
         schema:
           type: integer
@@ -882,7 +940,7 @@ paths:
         in: path
         name: profile
         description: 'Profile ID'
-        example: 2
+        example: 11
         required: true
         schema:
           type: integer
@@ -968,7 +1026,7 @@ paths:
         in: path
         name: id
         description: 'Project ID'
-        example: 6
+        example: 8
         required: true
         schema:
           type: integer
@@ -1192,7 +1250,7 @@ paths:
         in: path
         name: id
         description: 'Project ID'
-        example: 18
+        example: 19
         required: true
         schema:
           type: integer

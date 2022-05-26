@@ -16,9 +16,20 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     /**
-     * Store a newly created user in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * Store a newly created user in storage and return a newly created token.
+     * 
+     * 
+     * @bodyParam name string required Name of the User. Example: John Doe
+     * @bodyParam email string required Email of the User. Example: johndoe@gmail.com
+     * @bodyParam password string Password of the User. Example: password123
+     * 
+     * @response 201 {
+     *  "data": {
+     *      "token" : "api-token"  
+     *   }
+     * }
+     * 
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function register(Request $request)
@@ -42,9 +53,19 @@ class AuthController extends Controller
     }
 
     /**
-     * Store a newly created token in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
+     * Create a new token in storage and returns it.
+     * 
+     * 
+     * @bodyParam email string required Email of the User. Example: johndoe@gmail.com
+     * @bodyParam password string Password of the User. Example: password123
+     * 
+     * @response 201 {
+     *  "data": {
+     *      "token" : "api-token"  
+     *   }
+     * }
+     * 
+     * @param  \App\Http\Requests\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request)
@@ -69,8 +90,10 @@ class AuthController extends Controller
     }
 
     /**
-     * Delete all current user token in storage.
-     *
+     * Remove all user's tokens from storage.
+     *  
+     * @response 204
+     * 
      * @return \Illuminate\Http\Response
      */
     public function logout()
@@ -81,9 +104,13 @@ class AuthController extends Controller
     }
 
     /**
-     * Get all user info (except password, token, timestamps).
-     *
-     * @return \Illuminate\Http\Response
+     * Display user info.
+     * 
+     * @apiResource App\Http\Resources\AuthResource
+     * 
+     * @apiResourceModel App\Models\User with=profile,profile.tags,profile.projects,profile.projects.tags
+     * 
+     * @return AuthResource
      */
     public function me()
     {

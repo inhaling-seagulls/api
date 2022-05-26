@@ -38,9 +38,10 @@ class ProjectController extends Controller
             $projects = $projects->whereHas('tags', function ($query) use ($tags) {
                 return $query->whereIn('id', $tags);
             });
+            return ProjectResource::collection($projects->get());
         }
 
-        return ProjectResource::collection($projects->paginate(3));
+        return ProjectResource::collection($projects->paginate(2));
     }
 
     /**

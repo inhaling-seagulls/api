@@ -58,7 +58,7 @@ endpoints:
         name: profile
         description: 'Profile ID'
         required: true
-        example: 2
+        example: 11
         type: integer
         custom: []
     queryParameters:
@@ -101,7 +101,7 @@ endpoints:
         name: id
         description: 'Project ID'
         required: true
-        example: 6
+        example: 8
         type: integer
         custom: []
     queryParameters: []
@@ -130,7 +130,7 @@ endpoints:
         name: profile
         description: 'Profile ID'
         required: true
-        example: 19
+        example: 9
         type: integer
         custom: []
     queryParameters: []
@@ -196,7 +196,7 @@ endpoints:
         name: id
         description: 'Project ID'
         required: true
-        example: 18
+        example: 19
         type: integer
         custom: []
     queryParameters: []
@@ -226,14 +226,14 @@ endpoints:
         name: profile
         description: 'Profile ID'
         required: true
-        example: 1
+        example: 19
         type: integer
         custom: []
       id:
         name: id
         description: 'Project ID'
         required: true
-        example: 4
+        example: 20
         type: integer
         custom: []
     queryParameters: []
@@ -292,14 +292,14 @@ endpoints:
         name: profile
         description: 'Profile ID'
         required: true
-        example: 1
+        example: 19
         type: integer
         custom: []
       id:
         name: id
         description: 'The ID of the project.'
         required: true
-        example: 12
+        example: 4
         type: integer
         custom: []
     queryParameters: []

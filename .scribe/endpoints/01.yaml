@@ -89,7 +89,7 @@ endpoints:
         name: id
         description: 'Profile ID'
         required: true
-        example: 6
+        example: 5
         type: integer
         custom: []
     queryParameters: []
@@ -119,7 +119,7 @@ endpoints:
         name: id
         description: 'Profile ID'
         required: true
-        example: 14
+        example: 2
         type: integer
         custom: []
     queryParameters: []
