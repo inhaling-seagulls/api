@@ -75,13 +75,16 @@
                 </li>
                                     <ul id="tocify-subheader-authentication-management" class="tocify-subheader">
                                                     <li class="tocify-item level-2" data-unique="authentication-management-POSTapi-v1-register">
-                        <a href="#authentication-management-POSTapi-v1-register">POST api/v1/register</a>
+                        <a href="#authentication-management-POSTapi-v1-register">Store a newly created user in storage.</a>
                     </li>
                                     <li class="tocify-item level-2" data-unique="authentication-management-POSTapi-v1-login">
-                        <a href="#authentication-management-POSTapi-v1-login">POST api/v1/login</a>
+                        <a href="#authentication-management-POSTapi-v1-login">Store a newly created token in storage.</a>
                     </li>
                                     <li class="tocify-item level-2" data-unique="authentication-management-GETapi-v1-logout">
-                        <a href="#authentication-management-GETapi-v1-logout">GET api/v1/logout</a>
+                        <a href="#authentication-management-GETapi-v1-logout">Delete all current user token in storage.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="authentication-management-POSTapi-v1-me">
+                        <a href="#authentication-management-POSTapi-v1-me">Get all user info (except password, token, timestamps).</a>
                     </li>
                                                     </ul>
                             </ul>
@@ -115,17 +118,23 @@
                                                     <li class="tocify-item level-2" data-unique="project-management-GETapi-v1-projects">
                         <a href="#project-management-GETapi-v1-projects">Display a listing of projects.</a>
                     </li>
-                                    <li class="tocify-item level-2" data-unique="project-management-POSTapi-v1-projects">
-                        <a href="#project-management-POSTapi-v1-projects">Store a newly created project in storage.</a>
+                                    <li class="tocify-item level-2" data-unique="project-management-GETapi-v1-profiles--profile--projects">
+                        <a href="#project-management-GETapi-v1-profiles--profile--projects">Display a listing of projects belonging to specified profile.</a>
                     </li>
                                     <li class="tocify-item level-2" data-unique="project-management-GETapi-v1-projects--id-">
                         <a href="#project-management-GETapi-v1-projects--id-">Display the specified project.</a>
                     </li>
-                                    <li class="tocify-item level-2" data-unique="project-management-PUTapi-v1-projects--id-">
-                        <a href="#project-management-PUTapi-v1-projects--id-">Update the specified project in storage.</a>
+                                    <li class="tocify-item level-2" data-unique="project-management-POSTapi-v1-profiles--profile--projects">
+                        <a href="#project-management-POSTapi-v1-profiles--profile--projects">Store a newly created project in storage.</a>
                     </li>
-                                    <li class="tocify-item level-2" data-unique="project-management-DELETEapi-v1-projects--id-">
-                        <a href="#project-management-DELETEapi-v1-projects--id-">Remove the specified project from storage.</a>
+                                    <li class="tocify-item level-2" data-unique="project-management-GETapi-v1-profiles--profile--projects--id-">
+                        <a href="#project-management-GETapi-v1-profiles--profile--projects--id-">Display the specified project belonging to specified profile.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="project-management-PUTapi-v1-profiles--profile--projects--id-">
+                        <a href="#project-management-PUTapi-v1-profiles--profile--projects--id-">Update the specified project in storage.</a>
+                    </li>
+                                    <li class="tocify-item level-2" data-unique="project-management-DELETEapi-v1-profiles--profile--projects--id-">
+                        <a href="#project-management-DELETEapi-v1-profiles--profile--projects--id-">Remove the specified project from storage.</a>
                     </li>
                                                     </ul>
                             </ul>
@@ -172,7 +181,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
     <p>API's call to manage authentication services.</p>
 
-            <h2 id="authentication-management-POSTapi-v1-register">POST api/v1/register</h2>
+            <h2 id="authentication-management-POSTapi-v1-register">Store a newly created user in storage.</h2>
 
 <p>
 </p>
@@ -189,9 +198,9 @@ You can switch the language used with the tabs at the top right (or from the nav
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"praesentium\",
-    \"email\": \"neal.ullrich@example.com\",
-    \"password\": \"ut\"
+    \"name\": \"ut\",
+    \"email\": \"emile.bartell@example.org\",
+    \"password\": \"excepturi\"
 }"
 </code></pre></div>
 
@@ -207,9 +216,9 @@ const headers = {
 };
 
 let body = {
-    "name": "praesentium",
-    "email": "neal.ullrich@example.com",
-    "password": "ut"
+    "name": "ut",
+    "email": "emile.bartell@example.org",
+    "password": "excepturi"
 };
 
 fetch(url, {
@@ -267,7 +276,7 @@ fetch(url, {
                 <input type="text"
                name="name"
                data-endpoint="POSTapi-v1-register"
-               value="praesentium"
+               value="ut"
                data-component="body" hidden>
     <br>
 
@@ -277,7 +286,7 @@ fetch(url, {
                 <input type="text"
                name="email"
                data-endpoint="POSTapi-v1-register"
-               value="neal.ullrich@example.com"
+               value="emile.bartell@example.org"
                data-component="body" hidden>
     <br>
 <p>Must be a valid email address.</p>
@@ -287,14 +296,14 @@ fetch(url, {
                 <input type="text"
                name="password"
                data-endpoint="POSTapi-v1-register"
-               value="ut"
+               value="excepturi"
                data-component="body" hidden>
     <br>
 
         </p>
         </form>
 
-            <h2 id="authentication-management-POSTapi-v1-login">POST api/v1/login</h2>
+            <h2 id="authentication-management-POSTapi-v1-login">Store a newly created token in storage.</h2>
 
 <p>
 </p>
@@ -311,8 +320,8 @@ fetch(url, {
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"email\": \"ntowne@example.net\",
-    \"password\": \"incidunt\"
+    \"email\": \"xthiel@example.com\",
+    \"password\": \"animi\"
 }"
 </code></pre></div>
 
@@ -328,8 +337,8 @@ const headers = {
 };
 
 let body = {
-    "email": "ntowne@example.net",
-    "password": "incidunt"
+    "email": "xthiel@example.com",
+    "password": "animi"
 };
 
 fetch(url, {
@@ -387,7 +396,7 @@ fetch(url, {
                 <input type="text"
                name="email"
                data-endpoint="POSTapi-v1-login"
-               value="ntowne@example.net"
+               value="xthiel@example.com"
                data-component="body" hidden>
     <br>
 <p>Must be a valid email address.</p>
@@ -397,14 +406,14 @@ fetch(url, {
                 <input type="text"
                name="password"
                data-endpoint="POSTapi-v1-login"
-               value="incidunt"
+               value="animi"
                data-component="body" hidden>
     <br>
 
         </p>
         </form>
 
-            <h2 id="authentication-management-GETapi-v1-logout">GET api/v1/logout</h2>
+            <h2 id="authentication-management-GETapi-v1-logout">Delete all current user token in storage.</h2>
 
 <p>
 </p>
@@ -496,6 +505,84 @@ access-control-allow-origin: *
             <p>
             <small class="badge badge-green">GET</small>
             <b><code>api/v1/logout</code></b>
+        </p>
+                    </form>
+
+            <h2 id="authentication-management-POSTapi-v1-me">Get all user info (except password, token, timestamps).</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-POSTapi-v1-me">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/v1/me" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/me"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "POST",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-POSTapi-v1-me">
+</span>
+<span id="execution-results-POSTapi-v1-me" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-me"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-me"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-me" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-me"></code></pre>
+</span>
+<form id="form-POSTapi-v1-me" data-method="POST"
+      data-path="api/v1/me"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-me', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-me"
+                    onclick="tryItOut('POSTapi-v1-me');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-me"
+                    onclick="cancelTryOut('POSTapi-v1-me');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-me" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/me</code></b>
         </p>
                     </form>
 
@@ -695,31 +782,7 @@ fetch(url, {
 </span>
 
 <span id="example-responses-POSTapi-v1-profiles">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;data&quot;: {
-        &quot;id&quot;: 18,
-        &quot;pseudo&quot;: &quot;test&quot;,
-        &quot;contact&quot;: &quot;ttttees&quot;,
-        &quot;tags&quot;: [
-            {
-                &quot;id&quot;: 3,
-                &quot;name&quot;: &quot;angular&quot;
-            },
-            {
-                &quot;id&quot;: 11,
-                &quot;name&quot;: &quot;electron&quot;
-            }
-        ],
-        &quot;projects&quot;: []
-    }
-}</code>
- </pre>
-    </span>
+</span>
 <span id="execution-results-POSTapi-v1-profiles" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-POSTapi-v1-profiles"></span>:
@@ -808,14 +871,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/profiles/13" \
+    --get "http://localhost/api/v1/profiles/6" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/profiles/13"
+    "http://localhost/api/v1/profiles/6"
 );
 
 const headers = {
@@ -901,7 +964,7 @@ fetch(url, {
                 <input type="number"
                name="id"
                data-endpoint="GETapi-v1-profiles--id-"
-               value="13"
+               value="6"
                data-component="url" hidden>
     <br>
 <p>Profile ID</p>
@@ -921,7 +984,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/v1/profiles/3" \
+    "http://localhost/api/v1/profiles/14" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -937,7 +1000,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/profiles/3"
+    "http://localhost/api/v1/profiles/14"
 );
 
 const headers = {
@@ -963,31 +1026,7 @@ fetch(url, {
 </span>
 
 <span id="example-responses-PUTapi-v1-profiles--id-">
-            <blockquote>
-            <p>Example response (200):</p>
-        </blockquote>
-                <pre>
-
-<code class="language-json">{
-    &quot;data&quot;: {
-        &quot;id&quot;: 18,
-        &quot;pseudo&quot;: &quot;test&quot;,
-        &quot;contact&quot;: &quot;ttttees&quot;,
-        &quot;tags&quot;: [
-            {
-                &quot;id&quot;: 3,
-                &quot;name&quot;: &quot;angular&quot;
-            },
-            {
-                &quot;id&quot;: 11,
-                &quot;name&quot;: &quot;electron&quot;
-            }
-        ],
-        &quot;projects&quot;: []
-    }
-}</code>
- </pre>
-    </span>
+</span>
 <span id="execution-results-PUTapi-v1-profiles--id-" hidden>
     <blockquote>Received response<span
                 id="execution-response-status-PUTapi-v1-profiles--id-"></span>:
@@ -1037,7 +1076,7 @@ fetch(url, {
                 <input type="number"
                name="id"
                data-endpoint="PUTapi-v1-profiles--id-"
-               value="3"
+               value="14"
                data-component="url" hidden>
     <br>
 <p>Profile ID</p>
@@ -1362,63 +1401,49 @@ fetch(url, {
             </p>
                 </form>
 
-            <h2 id="project-management-POSTapi-v1-projects">Store a newly created project in storage.</h2>
+            <h2 id="project-management-GETapi-v1-profiles--profile--projects">Display a listing of projects belonging to specified profile.</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-POSTapi-v1-projects">
+<span id="example-requests-GETapi-v1-profiles--profile--projects">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
-    <pre><code class="language-bash">curl --request POST \
-    "http://localhost/api/v1/projects" \
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/v1/profiles/2/projects?page=1&amp;match=" \
     --header "Content-Type: application/json" \
-    --header "Accept: application/json" \
-    --data "{
-    \"name\": \"Project 1\",
-    \"description\": \"This project is very cool\",
-    \"image\": \"https:\\/\\/images.pexels.com\\/photos\\/4678283\\/pexels-photo-4678283.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1\",
-    \"tags\": [
-        1,
-        2
-    ]
-}"
-</code></pre></div>
+    --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/projects"
+    "http://localhost/api/v1/profiles/2/projects"
 );
+
+const params = {
+    "page": "1",
+    "match": "0",
+};
+Object.keys(params)
+    .forEach(key =&gt; url.searchParams.append(key, params[key]));
 
 const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
 };
 
-let body = {
-    "name": "Project 1",
-    "description": "This project is very cool",
-    "image": "https:\/\/images.pexels.com\/photos\/4678283\/pexels-photo-4678283.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1",
-    "tags": [
-        1,
-        2
-    ]
-};
-
 fetch(url, {
-    method: "POST",
+    method: "GET",
     headers,
-    body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
-<span id="example-responses-POSTapi-v1-projects">
+<span id="example-responses-GETapi-v1-profiles--profile--projects">
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
@@ -1488,90 +1513,89 @@ fetch(url, {
 }</code>
  </pre>
     </span>
-<span id="execution-results-POSTapi-v1-projects" hidden>
+<span id="execution-results-GETapi-v1-profiles--profile--projects" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-POSTapi-v1-projects"></span>:
+                id="execution-response-status-GETapi-v1-profiles--profile--projects"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-POSTapi-v1-projects"></code></pre>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-profiles--profile--projects"></code></pre>
 </span>
-<span id="execution-error-POSTapi-v1-projects" hidden>
+<span id="execution-error-GETapi-v1-profiles--profile--projects" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-POSTapi-v1-projects"></code></pre>
+    <pre><code id="execution-error-message-GETapi-v1-profiles--profile--projects"></code></pre>
 </span>
-<form id="form-POSTapi-v1-projects" data-method="POST"
-      data-path="api/v1/projects"
+<form id="form-GETapi-v1-profiles--profile--projects" data-method="GET"
+      data-path="api/v1/profiles/{profile}/projects"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-projects', this);">
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-profiles--profile--projects', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-POSTapi-v1-projects"
-                    onclick="tryItOut('POSTapi-v1-projects');">Try it out ⚡
+                    id="btn-tryout-GETapi-v1-profiles--profile--projects"
+                    onclick="tryItOut('GETapi-v1-profiles--profile--projects');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-POSTapi-v1-projects"
-                    onclick="cancelTryOut('POSTapi-v1-projects');" hidden>Cancel 🛑
+                    id="btn-canceltryout-GETapi-v1-profiles--profile--projects"
+                    onclick="cancelTryOut('GETapi-v1-profiles--profile--projects');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-POSTapi-v1-projects" hidden>Send Request 💥
+                    id="btn-executetryout-GETapi-v1-profiles--profile--projects" hidden>Send Request 💥
             </button>
             </h3>
             <p>
-            <small class="badge badge-black">POST</small>
-            <b><code>api/v1/projects</code></b>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/profiles/{profile}/projects</code></b>
         </p>
-                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
-        <p>
-            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-                <input type="text"
-               name="name"
-               data-endpoint="POSTapi-v1-projects"
-               value="Project 1"
-               data-component="body" hidden>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>profile</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="profile"
+               data-endpoint="GETapi-v1-profiles--profile--projects"
+               value="2"
+               data-component="url" hidden>
     <br>
-<p>Name of the project.</p>
-        </p>
-                <p>
-            <b><code>description</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
-                <input type="text"
-               name="description"
-               data-endpoint="POSTapi-v1-projects"
-               value="This project is very cool"
-               data-component="body" hidden>
+<p>Profile ID</p>
+            </p>
+                        <h4 class="fancy-heading-panel"><b>Query Parameters</b></h4>
+                    <p>
+                <b><code>page</code></b>&nbsp;&nbsp;<small>integer</small>     <i>optional</i> &nbsp;
+                <input type="number"
+               name="page"
+               data-endpoint="GETapi-v1-profiles--profile--projects"
+               value="1"
+               data-component="query" hidden>
     <br>
-<p>Description of the project.</p>
-        </p>
-                <p>
-            <b><code>image</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
-                <input type="text"
-               name="image"
-               data-endpoint="POSTapi-v1-projects"
-               value="https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-               data-component="body" hidden>
+<p>Page to view.</p>
+            </p>
+                    <p>
+                <b><code>match</code></b>&nbsp;&nbsp;<small>boolean</small>     <i>optional</i> &nbsp;
+                <label data-endpoint="GETapi-v1-profiles--profile--projects" hidden>
+            <input type="radio" name="match"
+                   value="1"
+                   data-endpoint="GETapi-v1-profiles--profile--projects"
+                   data-component="query"
+            >
+            <code>true</code>
+        </label>
+        <label data-endpoint="GETapi-v1-profiles--profile--projects" hidden>
+            <input type="radio" name="match"
+                   value="0"
+                   data-endpoint="GETapi-v1-profiles--profile--projects"
+                   data-component="query"
+            >
+            <code>false</code>
+        </label>
     <br>
-<p>Image of the project.</p>
-        </p>
-                <p>
-            <b><code>tags</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
-                <input type="text"
-               name="tags[0]"
-               data-endpoint="POSTapi-v1-projects"
-               data-component="body" hidden>
-        <input type="text"
-               name="tags[1]"
-               data-endpoint="POSTapi-v1-projects"
-               data-component="body" hidden>
-    <br>
-<p>List of tag id the project.</p>
-        </p>
-        </form>
+<p>Matching projects with profile preferences.</p>
+            </p>
+                </form>
 
             <h2 id="project-management-GETapi-v1-projects--id-">Display the specified project.</h2>
 
@@ -1586,14 +1610,14 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://localhost/api/v1/projects/12" \
+    --get "http://localhost/api/v1/projects/6" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/projects/12"
+    "http://localhost/api/v1/projects/6"
 );
 
 const headers = {
@@ -1692,27 +1716,27 @@ fetch(url, {
                 <input type="number"
                name="id"
                data-endpoint="GETapi-v1-projects--id-"
-               value="12"
+               value="6"
                data-component="url" hidden>
     <br>
 <p>Project ID</p>
             </p>
                     </form>
 
-            <h2 id="project-management-PUTapi-v1-projects--id-">Update the specified project in storage.</h2>
+            <h2 id="project-management-POSTapi-v1-profiles--profile--projects">Store a newly created project in storage.</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-PUTapi-v1-projects--id-">
+<span id="example-requests-POSTapi-v1-profiles--profile--projects">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
-    <pre><code class="language-bash">curl --request PUT \
-    "http://localhost/api/v1/projects/5" \
+    <pre><code class="language-bash">curl --request POST \
+    "http://localhost/api/v1/profiles/19/projects" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
@@ -1729,7 +1753,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/projects/5"
+    "http://localhost/api/v1/profiles/19/projects"
 );
 
 const headers = {
@@ -1748,14 +1772,215 @@ let body = {
 };
 
 fetch(url, {
-    method: "PUT",
+    method: "POST",
     headers,
     body: JSON.stringify(body),
 }).then(response =&gt; response.json());</code></pre></div>
 
 </span>
 
-<span id="example-responses-PUTapi-v1-projects--id-">
+<span id="example-responses-POSTapi-v1-profiles--profile--projects">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;data&quot;: [
+        {
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;Desktop Application&quot;,
+            &quot;description&quot;: &quot;Projet de la soutenance finale&quot;,
+            &quot;image&quot;: &quot;https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1&quot;,
+            &quot;tags&quot;: [
+                {
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;vue&quot;
+                },
+                {
+                    &quot;id&quot;: 6,
+                    &quot;name&quot;: &quot;laravel&quot;
+                },
+                {
+                    &quot;id&quot;: 9,
+                    &quot;name&quot;: &quot;mysql&quot;
+                },
+                {
+                    &quot;id&quot;: 11,
+                    &quot;name&quot;: &quot;electron&quot;
+                }
+            ],
+            &quot;profile&quot;: {
+                &quot;id&quot;: 19,
+                &quot;pseudo&quot;: &quot;Bewiwi&quot;,
+                &quot;contact&quot;: &quot;Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche &agrave; d&eacute;couvrir des nouvelles technologies\n\n(⌒‿⌒)&quot;
+            }
+        },
+        {
+            &quot;id&quot;: 11,
+            &quot;name&quot;: &quot;Desktop Application&quot;,
+            &quot;description&quot;: &quot;Projet de la soutenance finale&quot;,
+            &quot;image&quot;: &quot;https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1&quot;,
+            &quot;tags&quot;: [
+                {
+                    &quot;id&quot;: 2,
+                    &quot;name&quot;: &quot;vue&quot;
+                },
+                {
+                    &quot;id&quot;: 6,
+                    &quot;name&quot;: &quot;laravel&quot;
+                },
+                {
+                    &quot;id&quot;: 9,
+                    &quot;name&quot;: &quot;mysql&quot;
+                },
+                {
+                    &quot;id&quot;: 11,
+                    &quot;name&quot;: &quot;electron&quot;
+                }
+            ],
+            &quot;profile&quot;: {
+                &quot;id&quot;: 19,
+                &quot;pseudo&quot;: &quot;Bewiwi&quot;,
+                &quot;contact&quot;: &quot;Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche &agrave; d&eacute;couvrir des nouvelles technologies\n\n(⌒‿⌒)&quot;
+            }
+        }
+    ]
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-POSTapi-v1-profiles--profile--projects" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-POSTapi-v1-profiles--profile--projects"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-POSTapi-v1-profiles--profile--projects"></code></pre>
+</span>
+<span id="execution-error-POSTapi-v1-profiles--profile--projects" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-POSTapi-v1-profiles--profile--projects"></code></pre>
+</span>
+<form id="form-POSTapi-v1-profiles--profile--projects" data-method="POST"
+      data-path="api/v1/profiles/{profile}/projects"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('POSTapi-v1-profiles--profile--projects', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-POSTapi-v1-profiles--profile--projects"
+                    onclick="tryItOut('POSTapi-v1-profiles--profile--projects');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-POSTapi-v1-profiles--profile--projects"
+                    onclick="cancelTryOut('POSTapi-v1-profiles--profile--projects');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-POSTapi-v1-profiles--profile--projects" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-black">POST</small>
+            <b><code>api/v1/profiles/{profile}/projects</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>profile</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="profile"
+               data-endpoint="POSTapi-v1-profiles--profile--projects"
+               value="19"
+               data-component="url" hidden>
+    <br>
+<p>Profile ID</p>
+            </p>
+                            <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
+        <p>
+            <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="name"
+               data-endpoint="POSTapi-v1-profiles--profile--projects"
+               value="Project 1"
+               data-component="body" hidden>
+    <br>
+<p>Name of the project.</p>
+        </p>
+                <p>
+            <b><code>description</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
+                <input type="text"
+               name="description"
+               data-endpoint="POSTapi-v1-profiles--profile--projects"
+               value="This project is very cool"
+               data-component="body" hidden>
+    <br>
+<p>Description of the project.</p>
+        </p>
+                <p>
+            <b><code>image</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="image"
+               data-endpoint="POSTapi-v1-profiles--profile--projects"
+               value="https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+               data-component="body" hidden>
+    <br>
+<p>Image of the project.</p>
+        </p>
+                <p>
+            <b><code>tags</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
+                <input type="text"
+               name="tags[0]"
+               data-endpoint="POSTapi-v1-profiles--profile--projects"
+               data-component="body" hidden>
+        <input type="text"
+               name="tags[1]"
+               data-endpoint="POSTapi-v1-profiles--profile--projects"
+               data-component="body" hidden>
+    <br>
+<p>List of tag id the project.</p>
+        </p>
+        </form>
+
+            <h2 id="project-management-GETapi-v1-profiles--profile--projects--id-">Display the specified project belonging to specified profile.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-GETapi-v1-profiles--profile--projects--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request GET \
+    --get "http://localhost/api/v1/profiles/5/projects/18" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json"</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/profiles/5/projects/18"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+fetch(url, {
+    method: "GET",
+    headers,
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-GETapi-v1-profiles--profile--projects--id-">
             <blockquote>
             <p>Example response (200):</p>
         </blockquote>
@@ -1794,56 +2019,223 @@ fetch(url, {
 }</code>
  </pre>
     </span>
-<span id="execution-results-PUTapi-v1-projects--id-" hidden>
+<span id="execution-results-GETapi-v1-profiles--profile--projects--id-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-PUTapi-v1-projects--id-"></span>:
+                id="execution-response-status-GETapi-v1-profiles--profile--projects--id-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-PUTapi-v1-projects--id-"></code></pre>
+    <pre class="json"><code id="execution-response-content-GETapi-v1-profiles--profile--projects--id-"></code></pre>
 </span>
-<span id="execution-error-PUTapi-v1-projects--id-" hidden>
+<span id="execution-error-GETapi-v1-profiles--profile--projects--id-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-PUTapi-v1-projects--id-"></code></pre>
+    <pre><code id="execution-error-message-GETapi-v1-profiles--profile--projects--id-"></code></pre>
 </span>
-<form id="form-PUTapi-v1-projects--id-" data-method="PUT"
-      data-path="api/v1/projects/{id}"
+<form id="form-GETapi-v1-profiles--profile--projects--id-" data-method="GET"
+      data-path="api/v1/profiles/{profile}/projects/{id}"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('PUTapi-v1-projects--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('GETapi-v1-profiles--profile--projects--id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-PUTapi-v1-projects--id-"
-                    onclick="tryItOut('PUTapi-v1-projects--id-');">Try it out ⚡
+                    id="btn-tryout-GETapi-v1-profiles--profile--projects--id-"
+                    onclick="tryItOut('GETapi-v1-profiles--profile--projects--id-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-PUTapi-v1-projects--id-"
-                    onclick="cancelTryOut('PUTapi-v1-projects--id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-GETapi-v1-profiles--profile--projects--id-"
+                    onclick="cancelTryOut('GETapi-v1-profiles--profile--projects--id-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-PUTapi-v1-projects--id-" hidden>Send Request 💥
+                    id="btn-executetryout-GETapi-v1-profiles--profile--projects--id-" hidden>Send Request 💥
             </button>
             </h3>
             <p>
-            <small class="badge badge-darkblue">PUT</small>
-            <b><code>api/v1/projects/{id}</code></b>
-        </p>
-            <p>
-            <small class="badge badge-purple">PATCH</small>
-            <b><code>api/v1/projects/{id}</code></b>
+            <small class="badge badge-green">GET</small>
+            <b><code>api/v1/profiles/{profile}/projects/{id}</code></b>
         </p>
                     <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>profile</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="profile"
+               data-endpoint="GETapi-v1-profiles--profile--projects--id-"
+               value="5"
+               data-component="url" hidden>
+    <br>
+<p>Profile ID</p>
+            </p>
                     <p>
                 <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
                 <input type="number"
                name="id"
-               data-endpoint="PUTapi-v1-projects--id-"
-               value="5"
+               data-endpoint="GETapi-v1-profiles--profile--projects--id-"
+               value="18"
+               data-component="url" hidden>
+    <br>
+<p>Project ID</p>
+            </p>
+                    </form>
+
+            <h2 id="project-management-PUTapi-v1-profiles--profile--projects--id-">Update the specified project in storage.</h2>
+
+<p>
+</p>
+
+
+
+<span id="example-requests-PUTapi-v1-profiles--profile--projects--id-">
+<blockquote>Example request:</blockquote>
+
+
+<div class="bash-example">
+    <pre><code class="language-bash">curl --request PUT \
+    "http://localhost/api/v1/profiles/1/projects/4" \
+    --header "Content-Type: application/json" \
+    --header "Accept: application/json" \
+    --data "{
+    \"name\": \"Project 1\",
+    \"description\": \"This project is very cool\",
+    \"image\": \"https:\\/\\/images.pexels.com\\/photos\\/4678283\\/pexels-photo-4678283.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1\",
+    \"tags\": [
+        1,
+        2
+    ]
+}"
+</code></pre></div>
+
+
+<div class="javascript-example">
+    <pre><code class="language-javascript">const url = new URL(
+    "http://localhost/api/v1/profiles/1/projects/4"
+);
+
+const headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+};
+
+let body = {
+    "name": "Project 1",
+    "description": "This project is very cool",
+    "image": "https:\/\/images.pexels.com\/photos\/4678283\/pexels-photo-4678283.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1",
+    "tags": [
+        1,
+        2
+    ]
+};
+
+fetch(url, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+}).then(response =&gt; response.json());</code></pre></div>
+
+</span>
+
+<span id="example-responses-PUTapi-v1-profiles--profile--projects--id-">
+            <blockquote>
+            <p>Example response (200):</p>
+        </blockquote>
+                <pre>
+
+<code class="language-json">{
+    &quot;data&quot;: {
+        &quot;id&quot;: 11,
+        &quot;name&quot;: &quot;Desktop Application&quot;,
+        &quot;description&quot;: &quot;Projet de la soutenance finale&quot;,
+        &quot;image&quot;: &quot;https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&amp;cs=tinysrgb&amp;w=1260&amp;h=750&amp;dpr=1&quot;,
+        &quot;tags&quot;: [
+            {
+                &quot;id&quot;: 2,
+                &quot;name&quot;: &quot;vue&quot;
+            },
+            {
+                &quot;id&quot;: 6,
+                &quot;name&quot;: &quot;laravel&quot;
+            },
+            {
+                &quot;id&quot;: 9,
+                &quot;name&quot;: &quot;mysql&quot;
+            },
+            {
+                &quot;id&quot;: 11,
+                &quot;name&quot;: &quot;electron&quot;
+            }
+        ],
+        &quot;profile&quot;: {
+            &quot;id&quot;: 19,
+            &quot;pseudo&quot;: &quot;Bewiwi&quot;,
+            &quot;contact&quot;: &quot;Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche &agrave; d&eacute;couvrir des nouvelles technologies\n\n(⌒‿⌒)&quot;
+        }
+    }
+}</code>
+ </pre>
+    </span>
+<span id="execution-results-PUTapi-v1-profiles--profile--projects--id-" hidden>
+    <blockquote>Received response<span
+                id="execution-response-status-PUTapi-v1-profiles--profile--projects--id-"></span>:
+    </blockquote>
+    <pre class="json"><code id="execution-response-content-PUTapi-v1-profiles--profile--projects--id-"></code></pre>
+</span>
+<span id="execution-error-PUTapi-v1-profiles--profile--projects--id-" hidden>
+    <blockquote>Request failed with error:</blockquote>
+    <pre><code id="execution-error-message-PUTapi-v1-profiles--profile--projects--id-"></code></pre>
+</span>
+<form id="form-PUTapi-v1-profiles--profile--projects--id-" data-method="PUT"
+      data-path="api/v1/profiles/{profile}/projects/{id}"
+      data-authed="0"
+      data-hasfiles="0"
+      data-isarraybody="0"
+      data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
+      autocomplete="off"
+      onsubmit="event.preventDefault(); executeTryOut('PUTapi-v1-profiles--profile--projects--id-', this);">
+    <h3>
+        Request&nbsp;&nbsp;&nbsp;
+                    <button type="button"
+                    style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-tryout-PUTapi-v1-profiles--profile--projects--id-"
+                    onclick="tryItOut('PUTapi-v1-profiles--profile--projects--id-');">Try it out ⚡
+            </button>
+            <button type="button"
+                    style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-canceltryout-PUTapi-v1-profiles--profile--projects--id-"
+                    onclick="cancelTryOut('PUTapi-v1-profiles--profile--projects--id-');" hidden>Cancel 🛑
+            </button>&nbsp;&nbsp;
+            <button type="submit"
+                    style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
+                    id="btn-executetryout-PUTapi-v1-profiles--profile--projects--id-" hidden>Send Request 💥
+            </button>
+            </h3>
+            <p>
+            <small class="badge badge-darkblue">PUT</small>
+            <b><code>api/v1/profiles/{profile}/projects/{id}</code></b>
+        </p>
+            <p>
+            <small class="badge badge-purple">PATCH</small>
+            <b><code>api/v1/profiles/{profile}/projects/{id}</code></b>
+        </p>
+                    <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>profile</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="profile"
+               data-endpoint="PUTapi-v1-profiles--profile--projects--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>Profile ID</p>
+            </p>
+                    <p>
+                <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="id"
+               data-endpoint="PUTapi-v1-profiles--profile--projects--id-"
+               value="4"
                data-component="url" hidden>
     <br>
 <p>Project ID</p>
@@ -1853,7 +2245,7 @@ fetch(url, {
             <b><code>name</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
                 <input type="text"
                name="name"
-               data-endpoint="PUTapi-v1-projects--id-"
+               data-endpoint="PUTapi-v1-profiles--profile--projects--id-"
                value="Project 1"
                data-component="body" hidden>
     <br>
@@ -1863,7 +2255,7 @@ fetch(url, {
             <b><code>description</code></b>&nbsp;&nbsp;<small>string</small>  &nbsp;
                 <input type="text"
                name="description"
-               data-endpoint="PUTapi-v1-projects--id-"
+               data-endpoint="PUTapi-v1-profiles--profile--projects--id-"
                value="This project is very cool"
                data-component="body" hidden>
     <br>
@@ -1873,7 +2265,7 @@ fetch(url, {
             <b><code>image</code></b>&nbsp;&nbsp;<small>string</small>     <i>optional</i> &nbsp;
                 <input type="text"
                name="image"
-               data-endpoint="PUTapi-v1-projects--id-"
+               data-endpoint="PUTapi-v1-profiles--profile--projects--id-"
                value="https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
                data-component="body" hidden>
     <br>
@@ -1883,38 +2275,38 @@ fetch(url, {
             <b><code>tags</code></b>&nbsp;&nbsp;<small>string[]</small>     <i>optional</i> &nbsp;
                 <input type="text"
                name="tags[0]"
-               data-endpoint="PUTapi-v1-projects--id-"
+               data-endpoint="PUTapi-v1-profiles--profile--projects--id-"
                data-component="body" hidden>
         <input type="text"
                name="tags[1]"
-               data-endpoint="PUTapi-v1-projects--id-"
+               data-endpoint="PUTapi-v1-profiles--profile--projects--id-"
                data-component="body" hidden>
     <br>
 <p>List of tag id the project.</p>
         </p>
         </form>
 
-            <h2 id="project-management-DELETEapi-v1-projects--id-">Remove the specified project from storage.</h2>
+            <h2 id="project-management-DELETEapi-v1-profiles--profile--projects--id-">Remove the specified project from storage.</h2>
 
 <p>
 </p>
 
 
 
-<span id="example-requests-DELETEapi-v1-projects--id-">
+<span id="example-requests-DELETEapi-v1-profiles--profile--projects--id-">
 <blockquote>Example request:</blockquote>
 
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://localhost/api/v1/projects/11" \
+    "http://localhost/api/v1/profiles/1/projects/12" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://localhost/api/v1/projects/11"
+    "http://localhost/api/v1/profiles/1/projects/12"
 );
 
 const headers = {
@@ -1929,7 +2321,7 @@ fetch(url, {
 
 </span>
 
-<span id="example-responses-DELETEapi-v1-projects--id-">
+<span id="example-responses-DELETEapi-v1-profiles--profile--projects--id-">
             <blockquote>
             <p>Example response (204):</p>
         </blockquote>
@@ -1937,52 +2329,62 @@ fetch(url, {
 <code>[Empty response]</code>
  </pre>
     </span>
-<span id="execution-results-DELETEapi-v1-projects--id-" hidden>
+<span id="execution-results-DELETEapi-v1-profiles--profile--projects--id-" hidden>
     <blockquote>Received response<span
-                id="execution-response-status-DELETEapi-v1-projects--id-"></span>:
+                id="execution-response-status-DELETEapi-v1-profiles--profile--projects--id-"></span>:
     </blockquote>
-    <pre class="json"><code id="execution-response-content-DELETEapi-v1-projects--id-"></code></pre>
+    <pre class="json"><code id="execution-response-content-DELETEapi-v1-profiles--profile--projects--id-"></code></pre>
 </span>
-<span id="execution-error-DELETEapi-v1-projects--id-" hidden>
+<span id="execution-error-DELETEapi-v1-profiles--profile--projects--id-" hidden>
     <blockquote>Request failed with error:</blockquote>
-    <pre><code id="execution-error-message-DELETEapi-v1-projects--id-"></code></pre>
+    <pre><code id="execution-error-message-DELETEapi-v1-profiles--profile--projects--id-"></code></pre>
 </span>
-<form id="form-DELETEapi-v1-projects--id-" data-method="DELETE"
-      data-path="api/v1/projects/{id}"
+<form id="form-DELETEapi-v1-profiles--profile--projects--id-" data-method="DELETE"
+      data-path="api/v1/profiles/{profile}/projects/{id}"
       data-authed="0"
       data-hasfiles="0"
       data-isarraybody="0"
       data-headers='{"Content-Type":"application\/json","Accept":"application\/json"}'
       autocomplete="off"
-      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-v1-projects--id-', this);">
+      onsubmit="event.preventDefault(); executeTryOut('DELETEapi-v1-profiles--profile--projects--id-', this);">
     <h3>
         Request&nbsp;&nbsp;&nbsp;
                     <button type="button"
                     style="background-color: #8fbcd4; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-tryout-DELETEapi-v1-projects--id-"
-                    onclick="tryItOut('DELETEapi-v1-projects--id-');">Try it out ⚡
+                    id="btn-tryout-DELETEapi-v1-profiles--profile--projects--id-"
+                    onclick="tryItOut('DELETEapi-v1-profiles--profile--projects--id-');">Try it out ⚡
             </button>
             <button type="button"
                     style="background-color: #c97a7e; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-canceltryout-DELETEapi-v1-projects--id-"
-                    onclick="cancelTryOut('DELETEapi-v1-projects--id-');" hidden>Cancel 🛑
+                    id="btn-canceltryout-DELETEapi-v1-profiles--profile--projects--id-"
+                    onclick="cancelTryOut('DELETEapi-v1-profiles--profile--projects--id-');" hidden>Cancel 🛑
             </button>&nbsp;&nbsp;
             <button type="submit"
                     style="background-color: #6ac174; padding: 5px 10px; border-radius: 5px; border-width: thin;"
-                    id="btn-executetryout-DELETEapi-v1-projects--id-" hidden>Send Request 💥
+                    id="btn-executetryout-DELETEapi-v1-profiles--profile--projects--id-" hidden>Send Request 💥
             </button>
             </h3>
             <p>
             <small class="badge badge-red">DELETE</small>
-            <b><code>api/v1/projects/{id}</code></b>
+            <b><code>api/v1/profiles/{profile}/projects/{id}</code></b>
         </p>
                     <h4 class="fancy-heading-panel"><b>URL Parameters</b></h4>
+                    <p>
+                <b><code>profile</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
+                <input type="number"
+               name="profile"
+               data-endpoint="DELETEapi-v1-profiles--profile--projects--id-"
+               value="1"
+               data-component="url" hidden>
+    <br>
+<p>Profile ID</p>
+            </p>
                     <p>
                 <b><code>id</code></b>&nbsp;&nbsp;<small>integer</small>  &nbsp;
                 <input type="number"
                name="id"
-               data-endpoint="DELETEapi-v1-projects--id-"
-               value="11"
+               data-endpoint="DELETEapi-v1-profiles--profile--projects--id-"
+               value="12"
                data-component="url" hidden>
     <br>
 <p>The ID of the project.</p>

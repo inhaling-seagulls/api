@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ProfileResource;
 use App\Models\Profile;
-use App\Http\Requests\StoreProfileRequest;
-use App\Http\Requests\UpdateProfileRequest;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 /**
  * @group Profile Management
@@ -37,18 +35,18 @@ class ProfileController extends Controller
      * @bodyParam contact string required Contact of the profile. Example: Linkedin : JohnDoe06 Tel: 00 00 00 00 00
      * @bodyParam tags array List of tag id the profile. Example: [1, 2]
      *
-     * @apiResource App\Http\Resources\ProfileResource
-     * @apiResourceModel App\Models\Profile with=projects,tags
-     * 
-     * @param  \App\Http\Requests\StoreProjectRequest  $request
-     * @return ProfileResource
+     * @param  Illuminate\Http\Request;  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(StoreProfileRequest $request)
+    public function store(Request $request)
     {
+        // We check if a profile already exists for this user
+        if (auth()->user()->profile()->exists()) return response(["message" => "You can't create multiple profiles"], 409);
+
         $profile = Profile::create([
             'pseudo' => $request->input('pseudo'),
             'contact' => $request->input('contact'),
-            'user_id' => Auth::id()
+            'user_id' => auth()->id()
         ]);
         $profile->tags()->sync($request->tags);
         $profile = $profile->load('tags');
@@ -82,14 +80,15 @@ class ProfileController extends Controller
      * @bodyParam contact string required Contact of the profile. Example: Linkedin : JohnDoe06 Tel: 00 00 00 00 00
      * @bodyParam tags array List of tag id the profile. Example: [1, 2]
      *
-     * @apiResource App\Http\Resources\ProfileResource
-     * @apiResourceModel App\Models\Profile with=projects,tags
-     * 
-     * @param  \App\Http\Requests\UpdateProfileRequest  $request
-     * @return ProfileResource
+     * @param  Illuminate\Http\Request;  $request
+     * @param  \App\Models\Profile  $profile
+     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateProfileRequest $request, Profile $profile)
+    public function update(Request $request, Profile $profile)
     {
+        // Just in case, we check if this is the right person who tries to update
+        if ($profile->user_id !== auth()->id()) return response(["message" => "This resource belongs to another account"], 403);
+
         $profile->update($request->all());
         $profile->tags()->sync($request->tags);
         $profile = $profile->load(['tags', 'projects']);
@@ -107,10 +106,8 @@ class ProfileController extends Controller
      */
     public function destroy(Profile $profile)
     {
-        // We compare profile.user_id and authoticated user's id before deleting  
-        if ($profile->user_id !== Auth::id()) {
-            return response('', 401);
-        }
+        // Just in case, we check if this is the right person who tries to delete
+        if ($profile->user_id !== auth()->id()) return response(["message" => "This resource belongs to another account"], 403);
 
         $profile->delete();
 

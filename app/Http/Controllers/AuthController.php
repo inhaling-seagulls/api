@@ -15,8 +15,15 @@ use Illuminate\Support\Facades\Hash;
  */
 class AuthController extends Controller
 {
+    /**
+     * Store a newly created user in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function register(Request $request)
     {
+        // We assure that request has a correct format
         $fields = $request->validate([
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
@@ -31,16 +38,18 @@ class AuthController extends Controller
 
         $token = $user->createToken('api_token')->plainTextToken;
 
-        // We format user so it includes token
-        $user['token'] = $token;
-        $user = $user->load('profile');
-        $user = $user->load('profile.projects');
-
-        return new AuthResource($user);
+        return response(["data" => ["token" => $token]], 201);
     }
 
+    /**
+     * Store a newly created token in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function login(Request $request)
     {
+        // We assure that request has a correct format
         $fields = $request->validate([
             'email' => 'required|email',
             'password' => 'required|string'
@@ -56,17 +65,29 @@ class AuthController extends Controller
 
         $token = $user->createToken('api_token')->plainTextToken;
 
-        // We format user so it includes token
-        $user['token'] = $token;
-        $user = $user->load(['profile', 'profile.tags', 'profile.projects', 'profile.projects.tags']);
-
-        return new AuthResource($user);
+        return response(["data" => ["token" => $token]], 201);
     }
 
-    public function logout(Request $request)
+    /**
+     * Delete all current user token in storage.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function logout()
     {
         auth()->user()->tokens()->delete();
 
         return response('', 204);
+    }
+
+    /**
+     * Get all user info (except password, token, timestamps).
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function me()
+    {
+        $me = auth()->user()->with(['profile', 'profile.tags', 'profile.projects', 'profile.projects.tags'])->first();
+        return new AuthResource($me);
     }
 }

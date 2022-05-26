@@ -9,7 +9,7 @@ servers:
 paths:
   /api/v1/register:
     post:
-      summary: ''
+      summary: 'Store a newly created user in storage.'
       description: ''
       parameters:
         -
@@ -39,15 +39,15 @@ paths:
                 name:
                   type: string
                   description: ''
-                  example: praesentium
+                  example: ut
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: neal.ullrich@example.com
+                  example: emile.bartell@example.org
                 password:
                   type: string
                   description: ''
-                  example: ut
+                  example: excepturi
               required:
                 - name
                 - email
@@ -55,7 +55,7 @@ paths:
       security: []
   /api/v1/login:
     post:
-      summary: ''
+      summary: 'Store a newly created token in storage.'
       description: ''
       parameters:
         -
@@ -85,18 +85,18 @@ paths:
                 email:
                   type: string
                   description: 'Must be a valid email address.'
-                  example: ntowne@example.net
+                  example: xthiel@example.com
                 password:
                   type: string
                   description: ''
-                  example: incidunt
+                  example: animi
               required:
                 - email
                 - password
       security: []
   /api/v1/logout:
     get:
-      summary: ''
+      summary: 'Delete all current user token in storage.'
       description: ''
       parameters:
         -
@@ -126,6 +126,29 @@ paths:
                   message:
                     type: string
                     example: Unauthenticated.
+      tags:
+        - 'Authentication Management'
+      security: []
+  /api/v1/me:
+    post:
+      summary: 'Get all user info (except password, token, timestamps).'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
       tags:
         - 'Authentication Management'
       security: []
@@ -242,41 +265,7 @@ paths:
           example: application/json
           schema:
             type: string
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  data:
-                    id: 18
-                    pseudo: test
-                    contact: ttttees
-                    tags:
-                      -
-                        id: 3
-                        name: angular
-                      -
-                        id: 11
-                        name: electron
-                    projects: []
-                properties:
-                  data:
-                    type: object
-                    example:
-                      id: 18
-                      pseudo: test
-                      contact: ttttees
-                      tags:
-                        -
-                          id: 3
-                          name: angular
-                        -
-                          id: 11
-                          name: electron
-                      projects: []
+      responses: {  }
       tags:
         - 'Profile Management'
       requestBody:
@@ -381,41 +370,7 @@ paths:
           example: application/json
           schema:
             type: string
-      responses:
-        200:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  data:
-                    id: 18
-                    pseudo: test
-                    contact: ttttees
-                    tags:
-                      -
-                        id: 3
-                        name: angular
-                      -
-                        id: 11
-                        name: electron
-                    projects: []
-                properties:
-                  data:
-                    type: object
-                    example:
-                      id: 18
-                      pseudo: test
-                      contact: ttttees
-                      tags:
-                        -
-                          id: 3
-                          name: angular
-                        -
-                          id: 11
-                          name: electron
-                      projects: []
+      responses: {  }
       tags:
         - 'Profile Management'
       requestBody:
@@ -474,13 +429,158 @@ paths:
         in: path
         name: id
         description: 'Profile ID'
-        example: 13
+        example: 6
         required: true
         schema:
           type: integer
   /api/v1/projects:
     get:
       summary: 'Display a listing of projects.'
+      description: ''
+      parameters:
+        -
+          in: query
+          name: page
+          description: 'Page to view.'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Page to view.'
+            example: 1
+        -
+          in: query
+          name: match
+          description: 'Matching projects with profile preferences.'
+          example: false
+          required: false
+          schema:
+            type: boolean
+            description: 'Matching projects with profile preferences.'
+            example: false
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 11
+                      name: 'Desktop Application'
+                      description: 'Projet de la soutenance finale'
+                      image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                      tags:
+                        -
+                          id: 2
+                          name: vue
+                        -
+                          id: 6
+                          name: laravel
+                        -
+                          id: 9
+                          name: mysql
+                        -
+                          id: 11
+                          name: electron
+                      profile:
+                        id: 19
+                        pseudo: Bewiwi
+                        contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                    -
+                      id: 11
+                      name: 'Desktop Application'
+                      description: 'Projet de la soutenance finale'
+                      image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                      tags:
+                        -
+                          id: 2
+                          name: vue
+                        -
+                          id: 6
+                          name: laravel
+                        -
+                          id: 9
+                          name: mysql
+                        -
+                          id: 11
+                          name: electron
+                      profile:
+                        id: 19
+                        pseudo: Bewiwi
+                        contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 11
+                        name: 'Desktop Application'
+                        description: 'Projet de la soutenance finale'
+                        image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                        tags:
+                          -
+                            id: 2
+                            name: vue
+                          -
+                            id: 6
+                            name: laravel
+                          -
+                            id: 9
+                            name: mysql
+                          -
+                            id: 11
+                            name: electron
+                        profile:
+                          id: 19
+                          pseudo: Bewiwi
+                          contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                      -
+                        id: 11
+                        name: 'Desktop Application'
+                        description: 'Projet de la soutenance finale'
+                        image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                        tags:
+                          -
+                            id: 2
+                            name: vue
+                          -
+                            id: 6
+                            name: laravel
+                          -
+                            id: 9
+                            name: mysql
+                          -
+                            id: 11
+                            name: electron
+                        profile:
+                          id: 19
+                          pseudo: Bewiwi
+                          contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                    items:
+                      type: object
+      tags:
+        - 'Project Management'
+      security: []
+  '/api/v1/profiles/{profile}/projects':
+    get:
+      summary: 'Display a listing of projects belonging to specified profile.'
       description: ''
       parameters:
         -
@@ -777,9 +877,104 @@ paths:
                 - name
                 - description
       security: []
+    parameters:
+      -
+        in: path
+        name: profile
+        description: 'Profile ID'
+        example: 2
+        required: true
+        schema:
+          type: integer
   '/api/v1/projects/{id}':
     get:
       summary: 'Display the specified project.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 11
+                    name: 'Desktop Application'
+                    description: 'Projet de la soutenance finale'
+                    image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                    tags:
+                      -
+                        id: 2
+                        name: vue
+                      -
+                        id: 6
+                        name: laravel
+                      -
+                        id: 9
+                        name: mysql
+                      -
+                        id: 11
+                        name: electron
+                    profile:
+                      id: 19
+                      pseudo: Bewiwi
+                      contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: 11
+                      name: 'Desktop Application'
+                      description: 'Projet de la soutenance finale'
+                      image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                      tags:
+                        -
+                          id: 2
+                          name: vue
+                        -
+                          id: 6
+                          name: laravel
+                        -
+                          id: 9
+                          name: mysql
+                        -
+                          id: 11
+                          name: electron
+                      profile:
+                        id: 19
+                        pseudo: Bewiwi
+                        contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+      tags:
+        - 'Project Management'
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'Project ID'
+        example: 6
+        required: true
+        schema:
+          type: integer
+  '/api/v1/profiles/{profile}/projects/{id}':
+    get:
+      summary: 'Display the specified project belonging to specified profile.'
       description: ''
       parameters:
         -
@@ -987,9 +1182,17 @@ paths:
     parameters:
       -
         in: path
+        name: profile
+        description: 'Profile ID'
+        example: 5
+        required: true
+        schema:
+          type: integer
+      -
+        in: path
         name: id
         description: 'Project ID'
-        example: 12
+        example: 18
         required: true
         schema:
           type: integer
