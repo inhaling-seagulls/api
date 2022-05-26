@@ -1,0 +1,27 @@
+name: 'Tag Management'
+description: |-
+
+  API's call for Tags
+endpoints:
+  -
+    httpMethods:
+      - GET
+    uri: api/v1/tags
+    metadata:
+      title: 'Display a listing of tags.'
+      description: ''
+      authenticated: false
+      custom: []
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    queryParameters: []
+    bodyParameters: []
+    responses:
+      -
+        status: 200
+        content: '{"data":[{"id":3,"name":"angular"},{"id":3,"name":"angular"}]}'
+        headers: []
+        description: null
+    responseFields: []

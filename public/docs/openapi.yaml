@@ -1,0 +1,1057 @@
+openapi: 3.0.3
+info:
+  title: Laravel
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/v1/register:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Authentication Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: praesentium
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: neal.ullrich@example.com
+                password:
+                  type: string
+                  description: ''
+                  example: ut
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/v1/login:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Authentication Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: ntowne@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: incidunt
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/logout:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - 'Authentication Management'
+      security: []
+  /api/v1/profiles:
+    get:
+      summary: 'Display a listing of profiles.'
+      description: ''
+      parameters:
+        -
+          in: query
+          name: page
+          description: 'Page to view.'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Page to view.'
+            example: 1
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 18
+                      pseudo: test
+                      contact: ttttees
+                      tags:
+                        -
+                          id: 3
+                          name: angular
+                        -
+                          id: 11
+                          name: electron
+                      projects: []
+                    -
+                      id: 18
+                      pseudo: test
+                      contact: ttttees
+                      tags:
+                        -
+                          id: 3
+                          name: angular
+                        -
+                          id: 11
+                          name: electron
+                      projects: []
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 18
+                        pseudo: test
+                        contact: ttttees
+                        tags:
+                          -
+                            id: 3
+                            name: angular
+                          -
+                            id: 11
+                            name: electron
+                        projects: []
+                      -
+                        id: 18
+                        pseudo: test
+                        contact: ttttees
+                        tags:
+                          -
+                            id: 3
+                            name: angular
+                          -
+                            id: 11
+                            name: electron
+                        projects: []
+                    items:
+                      type: object
+      tags:
+        - 'Profile Management'
+      security: []
+    post:
+      summary: 'Store a newly created profile in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 18
+                    pseudo: test
+                    contact: ttttees
+                    tags:
+                      -
+                        id: 3
+                        name: angular
+                      -
+                        id: 11
+                        name: electron
+                    projects: []
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: 18
+                      pseudo: test
+                      contact: ttttees
+                      tags:
+                        -
+                          id: 3
+                          name: angular
+                        -
+                          id: 11
+                          name: electron
+                      projects: []
+      tags:
+        - 'Profile Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pseudo:
+                  type: string
+                  description: 'Pseudo of the profile.'
+                  example: JohnDoe06
+                contact:
+                  type: string
+                  description: 'Contact of the profile.'
+                  example: 'Linkedin : JohnDoe06 Tel: 00 00 00 00 00'
+                tags:
+                  type: array
+                  description: 'List of tag id the profile.'
+                  example:
+                    - 1
+                    - 2
+                  items:
+                    type: string
+              required:
+                - pseudo
+                - contact
+      security: []
+  '/api/v1/profiles/{id}':
+    get:
+      summary: 'Display the specified profile.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 18
+                    pseudo: test
+                    contact: ttttees
+                    tags:
+                      -
+                        id: 3
+                        name: angular
+                      -
+                        id: 11
+                        name: electron
+                    projects: []
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: 18
+                      pseudo: test
+                      contact: ttttees
+                      tags:
+                        -
+                          id: 3
+                          name: angular
+                        -
+                          id: 11
+                          name: electron
+                      projects: []
+      tags:
+        - 'Profile Management'
+      security: []
+    put:
+      summary: 'Store a newly created profile in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 18
+                    pseudo: test
+                    contact: ttttees
+                    tags:
+                      -
+                        id: 3
+                        name: angular
+                      -
+                        id: 11
+                        name: electron
+                    projects: []
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: 18
+                      pseudo: test
+                      contact: ttttees
+                      tags:
+                        -
+                          id: 3
+                          name: angular
+                        -
+                          id: 11
+                          name: electron
+                      projects: []
+      tags:
+        - 'Profile Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                pseudo:
+                  type: string
+                  description: 'Pseudo of the profile.'
+                  example: JohnDoe06
+                contact:
+                  type: string
+                  description: 'Contact of the profile.'
+                  example: 'Linkedin : JohnDoe06 Tel: 00 00 00 00 00'
+                tags:
+                  type: array
+                  description: 'List of tag id the profile.'
+                  example:
+                    - 1
+                    - 2
+                  items:
+                    type: string
+              required:
+                - pseudo
+                - contact
+      security: []
+    delete:
+      summary: 'Remove the specified profile from storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        204:
+          description: ''
+      tags:
+        - 'Profile Management'
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'Profile ID'
+        example: 13
+        required: true
+        schema:
+          type: integer
+  /api/v1/projects:
+    get:
+      summary: 'Display a listing of projects.'
+      description: ''
+      parameters:
+        -
+          in: query
+          name: page
+          description: 'Page to view.'
+          example: 1
+          required: false
+          schema:
+            type: integer
+            description: 'Page to view.'
+            example: 1
+        -
+          in: query
+          name: match
+          description: 'Matching projects with profile preferences.'
+          example: false
+          required: false
+          schema:
+            type: boolean
+            description: 'Matching projects with profile preferences.'
+            example: false
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 11
+                      name: 'Desktop Application'
+                      description: 'Projet de la soutenance finale'
+                      image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                      tags:
+                        -
+                          id: 2
+                          name: vue
+                        -
+                          id: 6
+                          name: laravel
+                        -
+                          id: 9
+                          name: mysql
+                        -
+                          id: 11
+                          name: electron
+                      profile:
+                        id: 19
+                        pseudo: Bewiwi
+                        contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                    -
+                      id: 11
+                      name: 'Desktop Application'
+                      description: 'Projet de la soutenance finale'
+                      image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                      tags:
+                        -
+                          id: 2
+                          name: vue
+                        -
+                          id: 6
+                          name: laravel
+                        -
+                          id: 9
+                          name: mysql
+                        -
+                          id: 11
+                          name: electron
+                      profile:
+                        id: 19
+                        pseudo: Bewiwi
+                        contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 11
+                        name: 'Desktop Application'
+                        description: 'Projet de la soutenance finale'
+                        image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                        tags:
+                          -
+                            id: 2
+                            name: vue
+                          -
+                            id: 6
+                            name: laravel
+                          -
+                            id: 9
+                            name: mysql
+                          -
+                            id: 11
+                            name: electron
+                        profile:
+                          id: 19
+                          pseudo: Bewiwi
+                          contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                      -
+                        id: 11
+                        name: 'Desktop Application'
+                        description: 'Projet de la soutenance finale'
+                        image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                        tags:
+                          -
+                            id: 2
+                            name: vue
+                          -
+                            id: 6
+                            name: laravel
+                          -
+                            id: 9
+                            name: mysql
+                          -
+                            id: 11
+                            name: electron
+                        profile:
+                          id: 19
+                          pseudo: Bewiwi
+                          contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                    items:
+                      type: object
+      tags:
+        - 'Project Management'
+      security: []
+    post:
+      summary: 'Store a newly created project in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 11
+                      name: 'Desktop Application'
+                      description: 'Projet de la soutenance finale'
+                      image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                      tags:
+                        -
+                          id: 2
+                          name: vue
+                        -
+                          id: 6
+                          name: laravel
+                        -
+                          id: 9
+                          name: mysql
+                        -
+                          id: 11
+                          name: electron
+                      profile:
+                        id: 19
+                        pseudo: Bewiwi
+                        contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                    -
+                      id: 11
+                      name: 'Desktop Application'
+                      description: 'Projet de la soutenance finale'
+                      image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                      tags:
+                        -
+                          id: 2
+                          name: vue
+                        -
+                          id: 6
+                          name: laravel
+                        -
+                          id: 9
+                          name: mysql
+                        -
+                          id: 11
+                          name: electron
+                      profile:
+                        id: 19
+                        pseudo: Bewiwi
+                        contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 11
+                        name: 'Desktop Application'
+                        description: 'Projet de la soutenance finale'
+                        image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                        tags:
+                          -
+                            id: 2
+                            name: vue
+                          -
+                            id: 6
+                            name: laravel
+                          -
+                            id: 9
+                            name: mysql
+                          -
+                            id: 11
+                            name: electron
+                        profile:
+                          id: 19
+                          pseudo: Bewiwi
+                          contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                      -
+                        id: 11
+                        name: 'Desktop Application'
+                        description: 'Projet de la soutenance finale'
+                        image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                        tags:
+                          -
+                            id: 2
+                            name: vue
+                          -
+                            id: 6
+                            name: laravel
+                          -
+                            id: 9
+                            name: mysql
+                          -
+                            id: 11
+                            name: electron
+                        profile:
+                          id: 19
+                          pseudo: Bewiwi
+                          contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                    items:
+                      type: object
+      tags:
+        - 'Project Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the project.'
+                  example: 'Project 1'
+                description:
+                  type: string
+                  description: 'Description of the project.'
+                  example: 'This project is very cool'
+                image:
+                  type: string
+                  description: 'Image of the project.'
+                  example: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                tags:
+                  type: array
+                  description: 'List of tag id the project.'
+                  example:
+                    - 1
+                    - 2
+                  items:
+                    type: string
+              required:
+                - name
+                - description
+      security: []
+  '/api/v1/projects/{id}':
+    get:
+      summary: 'Display the specified project.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 11
+                    name: 'Desktop Application'
+                    description: 'Projet de la soutenance finale'
+                    image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                    tags:
+                      -
+                        id: 2
+                        name: vue
+                      -
+                        id: 6
+                        name: laravel
+                      -
+                        id: 9
+                        name: mysql
+                      -
+                        id: 11
+                        name: electron
+                    profile:
+                      id: 19
+                      pseudo: Bewiwi
+                      contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: 11
+                      name: 'Desktop Application'
+                      description: 'Projet de la soutenance finale'
+                      image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                      tags:
+                        -
+                          id: 2
+                          name: vue
+                        -
+                          id: 6
+                          name: laravel
+                        -
+                          id: 9
+                          name: mysql
+                        -
+                          id: 11
+                          name: electron
+                      profile:
+                        id: 19
+                        pseudo: Bewiwi
+                        contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+      tags:
+        - 'Project Management'
+      security: []
+    put:
+      summary: 'Update the specified project in storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    id: 11
+                    name: 'Desktop Application'
+                    description: 'Projet de la soutenance finale'
+                    image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                    tags:
+                      -
+                        id: 2
+                        name: vue
+                      -
+                        id: 6
+                        name: laravel
+                      -
+                        id: 9
+                        name: mysql
+                      -
+                        id: 11
+                        name: electron
+                    profile:
+                      id: 19
+                      pseudo: Bewiwi
+                      contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+                properties:
+                  data:
+                    type: object
+                    example:
+                      id: 11
+                      name: 'Desktop Application'
+                      description: 'Projet de la soutenance finale'
+                      image: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                      tags:
+                        -
+                          id: 2
+                          name: vue
+                        -
+                          id: 6
+                          name: laravel
+                        -
+                          id: 9
+                          name: mysql
+                        -
+                          id: 11
+                          name: electron
+                      profile:
+                        id: 19
+                        pseudo: Bewiwi
+                        contact: "Bonjonr hihihi,\n\nJe m'appelle Bewiwi~\nJe cherche à découvrir des nouvelles technologies\n\n(⌒‿⌒)"
+      tags:
+        - 'Project Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: 'Name of the project.'
+                  example: 'Project 1'
+                description:
+                  type: string
+                  description: 'Description of the project.'
+                  example: 'This project is very cool'
+                image:
+                  type: string
+                  description: 'Image of the project.'
+                  example: 'https://images.pexels.com/photos/4678283/pexels-photo-4678283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+                tags:
+                  type: array
+                  description: 'List of tag id the project.'
+                  example:
+                    - 1
+                    - 2
+                  items:
+                    type: string
+              required:
+                - name
+                - description
+      security: []
+    delete:
+      summary: 'Remove the specified project from storage.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        204:
+          description: ''
+      tags:
+        - 'Project Management'
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'Project ID'
+        example: 12
+        required: true
+        schema:
+          type: integer
+  /api/v1/tags:
+    get:
+      summary: 'Display a listing of tags.'
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 3
+                      name: angular
+                    -
+                      id: 3
+                      name: angular
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 3
+                        name: angular
+                      -
+                        id: 3
+                        name: angular
+                    items:
+                      type: object
+      tags:
+        - 'Tag Management'
+      security: []
+tags:
+  -
+    name: 'Authentication Management'
+    description: "\nAPI's call to manage authentication services."
+  -
+    name: 'Profile Management'
+    description: "\nAPI's call for profile resources."
+  -
+    name: 'Project Management'
+    description: "\nAPI's call for project resources."
+  -
+    name: 'Tag Management'
+    description: "\nAPI's call for Tags"

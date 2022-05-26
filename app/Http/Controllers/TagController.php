@@ -4,14 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TagResource;
 use App\Models\Tag;
-use Illuminate\Http\Request;
 
+/**
+ * @group Tag Management
+ * 
+ * API's call for Tags
+ */
 class TagController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Display a listing of tags.
+     * 
+     * @apiResourceCollection App\Http\Resources\TagResource
+     * @apiResourceModel App\Models\Tag
+     * 
+     * @return ResourceCollection
      */
     public function index()
     {
