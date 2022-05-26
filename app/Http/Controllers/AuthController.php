@@ -114,7 +114,8 @@ class AuthController extends Controller
      */
     public function me()
     {
-        $me = auth()->user()->with(['profile', 'profile.tags', 'profile.projects', 'profile.projects.tags'])->first();
+        $me = auth()->user();
+        $me = $me->load(['profile', 'profile.tags', 'profile.projects', 'profile.projects.tags']);
         return new AuthResource($me);
     }
 }
