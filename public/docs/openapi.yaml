@@ -7,6 +7,128 @@ servers:
   -
     url: 'http://localhost'
 paths:
+  /api/v1/register:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Authentication Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: ''
+                  example: praesentium
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: neal.ullrich@example.com
+                password:
+                  type: string
+                  description: ''
+                  example: ut
+              required:
+                - name
+                - email
+                - password
+      security: []
+  /api/v1/login:
+    post:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses: {  }
+      tags:
+        - 'Authentication Management'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: 'Must be a valid email address.'
+                  example: ntowne@example.net
+                password:
+                  type: string
+                  description: ''
+                  example: incidunt
+              required:
+                - email
+                - password
+      security: []
+  /api/v1/logout:
+    get:
+      summary: ''
+      description: ''
+      parameters:
+        -
+          in: header
+          name: Content-Type
+          description: ''
+          example: application/json
+          schema:
+            type: string
+        -
+          in: header
+          name: Accept
+          description: ''
+          example: application/json
+          schema:
+            type: string
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - 'Authentication Management'
+      security: []
   /api/v1/profiles:
     get:
       summary: 'Display a listing of profiles.'
@@ -352,167 +474,10 @@ paths:
         in: path
         name: id
         description: 'Profile ID'
-        example: 18
+        example: 13
         required: true
         schema:
           type: integer
-  /api/v1/register:
-    post:
-      summary: ''
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses: {  }
-      tags:
-        - 'Authentication Management'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                  description: ''
-                  example: veniam
-                email:
-                  type: string
-                  description: 'Must be a valid email address.'
-                  example: ryann34@example.net
-                password:
-                  type: string
-                  description: ''
-                  example: voluptatem
-              required:
-                - name
-                - email
-                - password
-      security: []
-  /api/v1/login:
-    post:
-      summary: ''
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses: {  }
-      tags:
-        - 'Authentication Management'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: 'Must be a valid email address.'
-                  example: eugene30@example.com
-                password:
-                  type: string
-                  description: ''
-                  example: provident
-              required:
-                - email
-                - password
-      security: []
-  /api/v1/logout:
-    get:
-      summary: ''
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses:
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: Unauthenticated.
-                properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
-      tags:
-        - 'Authentication Management'
-      security: []
-  /api/v1/user:
-    get:
-      summary: ''
-      description: ''
-      parameters:
-        -
-          in: header
-          name: Content-Type
-          description: ''
-          example: application/json
-          schema:
-            type: string
-        -
-          in: header
-          name: Accept
-          description: ''
-          example: application/json
-          schema:
-            type: string
-      responses:
-        401:
-          description: ''
-          content:
-            application/json:
-              schema:
-                type: object
-                example:
-                  message: Unauthenticated.
-                properties:
-                  message:
-                    type: string
-                    example: Unauthenticated.
-      tags:
-        - Endpoints
-      security: []
   /api/v1/projects:
     get:
       summary: 'Display a listing of projects.'
@@ -1079,14 +1044,11 @@ paths:
       security: []
 tags:
   -
-    name: 'Profile Management'
-    description: "\nAPI's call for profile resources."
-  -
     name: 'Authentication Management'
     description: "\nAPI's call to manage authentication services."
   -
-    name: Endpoints
-    description: ''
+    name: 'Profile Management'
+    description: "\nAPI's call for profile resources."
   -
     name: 'Project Management'
     description: "\nAPI's call for project resources."
