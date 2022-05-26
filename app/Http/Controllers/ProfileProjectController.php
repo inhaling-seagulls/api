@@ -28,7 +28,7 @@ class ProfileProjectController extends Controller
      */
     public function index(Profile $profile)
     {
-        $projects = $profile->projects()->with('tags')->paginate(3);
+        $projects = $profile->projects()->with('tags')->paginate(2);
         return ProjectResource::collection($projects);
     }
 
