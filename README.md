@@ -36,25 +36,34 @@ You can go to {yourbaseurl}/docs to check the documentation
 
 #### Profiles
 
--   get:profiles
--   get:profiles/:id
--   post:profiles
--   put:profiles/:id
--   delete:profiles/:id
+-   get:profiles (protected)
+-   get:profiles/:id (protected)
+-   post:profiles (protected)
+-   put:profiles/:id (protected)
+-   delete:profiles/:id (protected)
 
 #### Projects
 
--   get:profiles
+-   get:profiles (protected)
     -   ?page=1 (Pagination)
-    -   ?match (return a list of project that match with user favorite tags)
--   get:projects/:id
--   post:projects
--   put:projects/:id
--   delete:projects/:id
+    -   ?match=1 (return a list of project that match with user favorite tags)
+-   get:projects/:id (protected)
+-   get:profiles/:profile/profiles (protected)
+-   get:profiles/:profile/projects/:id (protected)
+-   post:profiles/:profile/projects (protected)
+-   put:profiles/:profile/projects/:id (protected)
+-   delete:profiles/:profile/projects/:id (protected)
 
 #### Tags
 
 -   get:tags
+
+#### Authentication
+
+-   post:login
+-   post:register
+-   get:logout (protected)
+-   get:me (protected)
 
 ### Add/Update a profile
 
